@@ -1,7 +1,6 @@
 {
   "name": "planpal-backend",
   "version": "1.0.0",
-  "type": "module",
   "main": "server.js",
   "scripts": {
     "dev": "nodemon"
@@ -10,7 +9,7 @@
   "author": "",
   "license": "ISC",
   "description": "",
-  "devDependencies": {
+  "dependencies": {
     "@types/node": "^22.8.1",
     "nodemon": "^3.1.7",
     "ts-node": "^10.9.2",

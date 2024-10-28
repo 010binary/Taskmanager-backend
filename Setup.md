@@ -38,14 +38,20 @@ Modify `tsconfig.json` as needed. Example:
 ```json
 {
   "compilerOptions": {
-    "target": "ES6",
-    "module": "commonjs",
-    "outDir": "./dist",
-    "rootDir": "./src",
-    "strict": true,
-    "esModuleInterop": true
+    "module": "NodeNext",
+    "baseUrl": "src",
+    "outDir": "dist",
+    "sourceMap": true,
+    "noImplicitAny": true
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules"],
+  "paths": {
+    "@controller/*": ["src/components/*"],
+    "@utils/*": ["src/utils/*"]
   }
 }
+
 ```
 
 ### 4. Set Up Project Structure
