@@ -43,9 +43,9 @@ model follow {
 
 model todo {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  title     String
+  title     String   @unique
   note      String
-  status    String
+  status    Boolean  @default(false)
   time      DateTime
   repeat    String?
   priority  priority
