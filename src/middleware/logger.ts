@@ -34,10 +34,11 @@ export default async function logger(
     const startTime = new Date();
     let isFinished = false;
 
-    const originalEnd = res.end;
+    // Capture original end method
+    const originalEnd = res.end.bind(res);
 
-    // Override end method
-    res.end = function (...args: any[]) {
+    // Create a function that handles the logging
+    const logRequest = () => {
       if (!isFinished) {
         const endTime = new Date();
         const duration = endTime.getTime() - startTime.getTime();
@@ -49,12 +50,47 @@ export default async function logger(
         } - DURATION: ${duration}ms\n`;
 
         writeLog(logEntry).catch(console.error);
-
         isFinished = true;
       }
-      return originalEnd.apply(res, args);
     };
 
+    // Type for res.end
+    type EndType = {
+      (cb?: (() => void) | undefined): Response;
+      (chunk: any, cb?: (() => void) | undefined): Response;
+      (
+        chunk: any,
+        encoding: BufferEncoding,
+        cb?: (() => void) | undefined
+      ): Response;
+    };
+
+    // Override end with proper overloads
+    const endOverride: EndType = function (
+      chunk?: any,
+      encoding?: BufferEncoding | (() => void),
+      cb?: () => void
+    ): Response {
+      logRequest();
+
+      if (typeof chunk === "undefined") {
+        return originalEnd();
+      }
+
+      if (typeof encoding === "function") {
+        return originalEnd(chunk, encoding);
+      }
+
+      if (typeof encoding === "undefined") {
+        return originalEnd(chunk);
+      }
+
+      return originalEnd(chunk, encoding, cb);
+    };
+
+    res.end = endOverride;
+
+    // Single error handler for both request and response errors
     const errorHandler = (err: Error) => {
       const errorLogEntry = `${new Date().toISOString()} - ERROR: ${
         err.message

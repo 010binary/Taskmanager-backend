@@ -4,7 +4,10 @@
   "main": "server.js",
   "scripts": {
     "dev": "nodemon",
-    "start": "prisma generate && node ./dist/server.js"
+    "start": "prisma generate && node dist/src/server.js",
+    "prod": "npm run build && npm run start",
+    "build": "rimraf dist && tsc",
+    "build:watch": "tsc --watch"
   },
   "keywords": [],
   "author": "",
