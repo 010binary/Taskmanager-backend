@@ -5,6 +5,7 @@ import cors from "cors";
 import logger from "@middleware/logger";
 import useragent from "express-useragent";
 import router from "./router/";
+import "./register-paths";
 
 dotenv.config();
 
