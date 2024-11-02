@@ -17,7 +17,8 @@
       "@helpers/*": ["./src/helpers/*"],
       "@utils/*": ["./src/utils/*"],
       "@orm/*": ["./prisma/*"],
-      "@middleware/*": ["./src/middleware/*"]
+      "@middleware/*": ["./src/middleware/*"],
+      "@types/*": ["./src/types/*"]
     }
   },
   "include": ["src/**/*"],

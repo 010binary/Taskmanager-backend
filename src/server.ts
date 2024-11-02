@@ -1,6 +1,7 @@
 import dotenv from "dotenv";
 import express from "express";
 import bodyParser from "body-parser";
+import cookieParser from "cookie-parser";
 import cors from "cors";
 import logger from "@middleware/logger";
 import useragent from "express-useragent";
@@ -27,6 +28,7 @@ app.use(
   })
 );
 
+app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(useragent.express());
@@ -35,7 +37,7 @@ app.use(useragent.express());
 app.use(logger);
 
 // Routes
-app.use("/api", router);
+app.use("/api/v1", router);
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);

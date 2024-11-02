@@ -1,35 +1,29 @@
 import connect from "@orm/connect";
 import prisma from "@orm/index";
 import bcrypt from "bcrypt";
+import type {
+  RegisterParams,
+  RegisterResult,
+  LoginResult,
+  UpdateResult,
+  UpdateParams,
+  ChangePasswordResult,
+  UserResult,
+} from "../types/User";
 
-interface registerParams {
-  fullname: string;
-  email: string;
-  occupation: string;
-  password: string;
-}
-
-interface updateParams {
-  id: string;
-  fullname: string;
-  email: string;
-  occupation: string;
-  social: string;
-  image: string;
-}
-
-const Register = async (params: registerParams) => {
+const Register = async (params: RegisterParams): Promise<RegisterResult> => {
   try {
     await connect();
-
     // Check if user already exists
     const existingUser = await prisma.user.findUnique({
       where: { email: params.email },
     });
 
     if (existingUser) {
-      const err = new Error("User already exists");
-      return err.message;
+      return {
+        success: false,
+        error: "User already exists",
+      };
     }
 
     // Hash password
@@ -45,114 +39,152 @@ const Register = async (params: registerParams) => {
       },
     });
 
-    delete (user as { password?: string }).password;
-    return user;
+    // Remove password from the returned user object
+    const { password, ...userWithoutPassword } = user;
+
+    return {
+      success: true,
+      data: userWithoutPassword,
+    };
   } catch (error) {
-    const err = error as Error;
-    console.log(err.message);
-    return err.message;
+    return {
+      success: false,
+      error:
+        error instanceof Error ? error.message : "An unknown error occurred",
+    };
   } finally {
     await prisma.$disconnect();
   }
 };
 
-const Login = async (email: string, password: string) => {
+const Login = async (email: string, password: string): Promise<LoginResult> => {
   try {
     await connect();
-
     const user = await prisma.user.findUnique({
-      where: { email: email },
+      where: { email },
     });
 
     if (!user) {
-      const err = new Error("User not found");
-      return err.message;
+      return {
+        success: false,
+        error: "User not found",
+      };
     }
 
     const validPassword = await bcrypt.compare(password, user.password);
-
     if (!validPassword) {
-      const err = new Error("Invalid password");
-      return err.message;
+      return {
+        success: false,
+        error: "Invalid password",
+      };
     }
-    delete (user as { password?: string }).password;
-    return user;
+
+    const { password: _, ...userWithoutPassword } = user;
+    return {
+      success: true,
+      data: userWithoutPassword,
+    };
   } catch (error) {
-    const err = error as Error;
-    console.log(err.message);
-    return err.message;
+    return {
+      success: false,
+      error:
+        error instanceof Error ? error.message : "An unknown error occurred",
+    };
   } finally {
     await prisma.$disconnect();
   }
 };
 
-const Update = async (params: updateParams) => {
+const Update = async (params: UpdateParams): Promise<UpdateResult> => {
   try {
     await connect();
 
-    const user = await prisma.user.update({
-      where: { id: params.id },
-      data: {
+    // Remove undefined values from update data
+    const updateData = Object.fromEntries(
+      Object.entries({
         fullname: params.fullname,
         email: params.email,
         occupation: params.occupation,
         social: params.social,
-        image: params.social,
-      },
+        image: params.image,
+      }).filter(([_, value]) => value !== undefined)
+    );
+
+    const user = await prisma.user.update({
+      where: { id: params.id },
+      data: updateData,
     });
-    delete (user as { password?: string }).password;
-    return user;
+
+    const { password: _, ...userWithoutPassword } = user;
+    return {
+      success: true,
+      data: userWithoutPassword,
+    };
   } catch (error) {
-    const err = error as Error;
-    console.log(err.message);
-    return err.message;
+    return {
+      success: false,
+      error:
+        error instanceof Error ? error.message : "An unknown error occurred",
+    };
   } finally {
     await prisma.$disconnect();
   }
 };
 
-const ChangePassword = async (id: string, password: string) => {
+const ChangePassword = async (
+  id: string,
+  password: string
+): Promise<ChangePasswordResult> => {
   try {
     await connect();
-
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
-    const user = await prisma.user.update({
-      where: { id: id },
-      data: {
-        password: hashedPassword,
-      },
+    await prisma.user.update({
+      where: { id },
+      data: { password: hashedPassword },
     });
 
-    return { message: "Password changed successfully" };
+    return {
+      success: true,
+      data: { message: "Password changed successfully" },
+    };
   } catch (error) {
-    const err = error as Error;
-    console.log(err.message);
-    return err.message;
+    return {
+      success: false,
+      error:
+        error instanceof Error ? error.message : "An unknown error occurred",
+    };
   } finally {
     await prisma.$disconnect();
   }
 };
 
-const User = async (email: string) => {
+const User = async (email: string): Promise<UserResult> => {
   try {
     await connect();
-
     const user = await prisma.user.findUnique({
-      where: { email: email },
+      where: { email },
     });
 
     if (!user) {
-      const err = new Error("User not found");
-      return err.message;
+      return {
+        success: false,
+        error: "User not found",
+      };
     }
-    delete (user as { password?: string }).password;
-    return user;
+
+    const { password: _, ...userWithoutPassword } = user;
+    return {
+      success: true,
+      data: userWithoutPassword,
+    };
   } catch (error) {
-    const err = error as Error;
-    console.log(err.message);
-    return err.message;
+    return {
+      success: false,
+      error:
+        error instanceof Error ? error.message : "An unknown error occurred",
+    };
   } finally {
     await prisma.$disconnect();
   }
