@@ -114,7 +114,6 @@ const refresh = async (req: Request, res: Response): Promise<void> => {
 };
 
 const logout = async (req: Request, res: Response): Promise<void> => {
-  // const accessToken = req.headers.authorization?.split(" ")[1];
   const { refreshToken, accessToken } = req.body as {
     refreshToken: string;
     accessToken: string;
@@ -122,7 +121,7 @@ const logout = async (req: Request, res: Response): Promise<void> => {
   if (accessToken && refreshToken) {
     await invalidateToken(accessToken, refreshToken);
   }
-  res.status(204).send();
+  res.status(204).json({ message: "Logged out successfully" });
 };
 
 export { register, login, logout, refresh };
