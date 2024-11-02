@@ -1,59 +1,143 @@
-import { SignJWT, jwtVerify, JWTPayload } from "jose";
+import { SignJWT, jwtVerify } from "jose";
+import { TokenPayload, TokenResponse } from "../types/Token";
+import crypto from "crypto";
 
-// A mock blacklist to store invalidated tokens (use Redis or database in production)
-const tokenBlacklist = new Set<string>();
+// Store revoked JTIs and their expiry timestamps
+const revokedTokens: Map<string, number> = new Map();
 
-/**
- * Signs an access token with a 10-minute expiration time.
- * @param payload {JWTPayload} - The payload to include in the JWT.
- * @returns {Promise<string>} - The signed JWT as a string.
- */
-export async function signAccessToken(payload: JWTPayload): Promise<string> {
-  return new SignJWT(payload)
+// Cleanup expired entries periodically
+setInterval(() => {
+  const now = Date.now();
+  for (const [jti, expiry] of revokedTokens.entries()) {
+    if (expiry < now) {
+      revokedTokens.delete(jti);
+    }
+  }
+}, 1000 * 60 * 60);
+
+async function signAccessToken(payload: TokenPayload): Promise<string> {
+  const jti = crypto.randomBytes(16).toString("hex");
+  return new SignJWT({ ...payload, jti, type: "access" })
     .setProtectedHeader({ alg: process.env.ALGO || "HS256" })
-    .setExpirationTime("10min")
+    .setExpirationTime("10m")
+    .setIssuedAt()
+    .setNotBefore(0)
     .sign(new TextEncoder().encode(process.env.JWT_SECRET));
 }
 
-/**
- * Signs a refresh token with a 5-day expiration time.
- * @param payload {JWTPayload} - The payload to include in the JWT.
- * @returns {Promise<string>} - The signed JWT as a string.
- */
-export async function signRefreshToken(payload: JWTPayload): Promise<string> {
-  return new SignJWT(payload)
+async function signRefreshToken(payload: TokenPayload): Promise<string> {
+  const jti = crypto.randomBytes(16).toString("hex");
+  return new SignJWT({ ...payload, jti, type: "refresh" })
     .setProtectedHeader({ alg: process.env.ALGO || "HS256" })
     .setExpirationTime("5d")
+    .setIssuedAt()
+    .setNotBefore(0)
     .sign(new TextEncoder().encode(process.env.JWT_SECRET));
 }
 
 /**
- * Verifies a JWT token and returns its payload.
- * @param token {string} - The JWT token to verify.
- * @returns {Promise<JWTPayload | Error>} - Returns the decoded payload if the token is valid, or an error if invalid.
+ * Verifies the token and returns the payload
  */
-export async function verifyToken(token: string): Promise<JWTPayload | Error> {
+export async function verifyToken(token: string): Promise<TokenPayload> {
   try {
-    if (tokenBlacklist.has(token)) {
-      throw new Error("Token has been invalidated.");
-    }
-
     const { payload } = await jwtVerify(
       token,
       new TextEncoder().encode(process.env.JWT_SECRET)
     );
-    return payload;
+
+    const jti = payload.jti as string;
+    if (jti && revokedTokens.has(jti)) {
+      throw new Error("Token has been revoked");
+    }
+
+    if (!payload.type) {
+      throw new Error("Invalid token type");
+    }
+
+    return payload as TokenPayload;
   } catch (error) {
-    return error as Error;
+    throw error;
   }
 }
 
 /**
- * Invalidates an access and refresh token by adding them to the blacklist.
- * @param accessToken {string} - The access token to invalidate.
- * @param refreshToken {string} - The refresh token to invalidate.
+ * Generates access and refresh tokens during login and registration
  */
-export function invalidateTokens(accessToken: string, refreshToken: string) {
-  tokenBlacklist.add(accessToken);
-  tokenBlacklist.add(refreshToken);
+export async function generateTokens(
+  payload: TokenPayload
+): Promise<TokenResponse> {
+  const [accessToken, refreshToken] = await Promise.all([
+    signAccessToken(payload),
+    signRefreshToken(payload),
+  ]);
+
+  return {
+    accessToken,
+    refreshToken,
+    expiresIn: 600,
+    tokenType: "Bearer",
+  };
+}
+
+/**
+ * Invalidates both tokens during logout
+ */
+export async function invalidateToken(
+  accessToken: string,
+  refreshToken: string
+): Promise<void> {
+  // Invalidate both tokens
+  if (refreshToken) {
+    try {
+      const { payload } = await jwtVerify(
+        refreshToken,
+        new TextEncoder().encode(process.env.JWT_SECRET)
+      );
+      if (payload.jti && payload.exp) {
+        revokedTokens.set(payload.jti, payload.exp * 1000);
+      }
+    } catch (error) {
+      console.error("Failed to invalidate refresh token:", error);
+    }
+  }
+
+  if (accessToken) {
+    try {
+      const { payload } = await jwtVerify(
+        accessToken,
+        new TextEncoder().encode(process.env.JWT_SECRET)
+      );
+      if (payload.jti && payload.exp) {
+        revokedTokens.set(payload.jti, payload.exp * 1000);
+      }
+    } catch (error) {
+      console.error("Failed to invalidate access token:", error);
+    }
+  }
+  return;
+}
+
+/**
+ * Rotates tokens using the refresh token during token refresh
+ */
+export async function rotateTokens(refreshToken: string): Promise<string> {
+  const verifiedPayload = await verifyToken(refreshToken);
+
+  if (verifiedPayload instanceof Error) {
+    throw new Error("Invalid token");
+  }
+
+  if (verifiedPayload.type !== "refresh") {
+    throw new Error("Invalid token type");
+  }
+
+  if (verifiedPayload.jti && revokedTokens.has(verifiedPayload.jti)) {
+    throw new Error("Refresh token has been revoked");
+  }
+
+  const { id, email } = verifiedPayload as { id: string; email: string };
+  const payload = { id, email };
+
+  // Generate new tokens
+  return signAccessToken(payload);
 }
