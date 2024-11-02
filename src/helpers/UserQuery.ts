@@ -8,6 +8,7 @@ import type {
   UpdateResult,
   UpdateParams,
   ChangePasswordResult,
+  ForgotPasswordResult,
   UserResult,
 } from "../types/User";
 
@@ -131,14 +132,83 @@ const Update = async (params: UpdateParams): Promise<UpdateResult> => {
   }
 };
 
-const ChangePassword = async (
-  id: string,
+const ForgotPassword = async (
+  email: string,
   password: string
+): Promise<ForgotPasswordResult> => {
+  try {
+    await connect();
+
+    // Find user
+    const user = await prisma.user.findUnique({
+      where: { email },
+    });
+
+    // Check if user exists
+    if (!user) {
+      return {
+        success: false,
+        error: "User not found",
+      };
+    }
+
+    // Hash password
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+
+    await prisma.user.update({
+      where: { email },
+      data: { password: hashedPassword },
+    });
+
+    return {
+      success: true,
+      data: { message: "Password changed successfully" },
+    };
+  } catch (error) {
+    return {
+      success: false,
+      error:
+        error instanceof Error ? error.message : "An unknown error occurred",
+    };
+  } finally {
+    await prisma.$disconnect();
+  }
+};
+
+const changePassword = async (
+  id: string,
+  oldPassword: string,
+  newPassword: string
 ): Promise<ChangePasswordResult> => {
   try {
     await connect();
+
+    // Find user
+    const user = await prisma.user.findUnique({
+      where: { id },
+    });
+
+    // Check if user exists
+    if (!user) {
+      return {
+        success: false,
+        error: "User not found",
+      };
+    }
+
+    // Check if old password is valid
+    const validPassword = await bcrypt.compare(oldPassword, user.password);
+    if (!validPassword) {
+      return {
+        success: false,
+        error: "Invalid password",
+      };
+    }
+
+    // Hash new password
     const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, salt);
+    const hashedPassword = await bcrypt.hash(newPassword, salt);
 
     await prisma.user.update({
       where: { id },
@@ -190,6 +260,13 @@ const User = async (email: string): Promise<UserResult> => {
   }
 };
 
-const UserQuery = { User, Register, Update, Login, ChangePassword };
+const UserQuery = {
+  User,
+  Register,
+  Update,
+  Login,
+  ForgotPassword,
+  changePassword,
+};
 
 export { UserQuery };

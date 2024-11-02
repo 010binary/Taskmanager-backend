@@ -41,6 +41,7 @@ type Result<T> =
 type RegisterResult = Result<Omit<User, "password">>;
 type LoginResult = Result<Omit<User, "password">>;
 type UpdateResult = Result<Omit<User, "password">>;
+type ForgotPasswordResult = Result<{ message: string }>;
 type ChangePasswordResult = Result<{ message: string }>;
 type UserResult = Result<Omit<User, "password">>;
 export type {
@@ -51,6 +52,7 @@ export type {
   RegisterResult,
   LoginResult,
   UpdateResult,
+  ForgotPasswordResult,
   ChangePasswordResult,
   UserResult,
 };
