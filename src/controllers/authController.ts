@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
-import { UserQuery } from "@helpers/UserQuery";
+import UserQuery from "@helpers/AuthQuery";
 import { invalidateToken, rotateTokens, generateTokens } from "@utils/jwt";
-import { RegisterParams } from "../types/User";
+import { RegisterParams } from "../types/Auth";
 
 const register = async (req: Request, res: Response): Promise<void> => {
   try {

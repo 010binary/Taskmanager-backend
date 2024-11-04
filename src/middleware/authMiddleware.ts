@@ -18,7 +18,8 @@ export const authMiddleware = async (
     req.body.payload = payload;
     next();
   } catch (error) {
-    res.status(401).json({ message: "Unauthorized" });
+    const message = error instanceof Error ? error.message : "Unauthorized";
+    res.status(401).json({ message });
     return;
   }
 };

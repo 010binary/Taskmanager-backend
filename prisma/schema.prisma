@@ -30,7 +30,6 @@ model User {
   todo todo[]
   streak streak[]
 
-  token token[]
 }
 
 model follow {
@@ -71,13 +70,3 @@ model streak {
   user      User     @relation(fields: [userId], references: [id])
 }
 
-model token {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  token     String   @unique
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  // Relation
-  userId    String   @db.ObjectId
-  user      User     @relation(fields: [userId], references: [id])
-}
