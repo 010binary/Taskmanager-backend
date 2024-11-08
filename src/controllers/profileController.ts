@@ -26,4 +26,25 @@ const changestatus = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
-export { changestatus };
+const updateprofile = async (req: Request, res: Response): Promise<void> => {
+  try {
+    console.log(req.body);
+
+    // Update
+  } catch (error) {
+    res.status(500).json({
+      message:
+        error instanceof Error ? error.message : "An unknown error occurred",
+    });
+    return;
+  }
+
+  const { fileUrl, ...otherFields } = req.body;
+
+  res.json({
+    message: "File uploaded and form data received",
+  });
+  return;
+};
+
+export { changestatus, updateprofile };

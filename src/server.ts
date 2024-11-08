@@ -1,7 +1,6 @@
 import dotenv from "dotenv";
 import express from "express";
 import bodyParser from "body-parser";
-
 import cors from "cors";
 import logger from "@middleware/logger";
 import useragent from "express-useragent";
