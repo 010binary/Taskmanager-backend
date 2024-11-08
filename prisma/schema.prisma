@@ -44,10 +44,12 @@ model follow {
 
 model todo {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  day       String
+  date      String
   title     String   @unique
   note      String
   status    Boolean  @default(false)
-  time      DateTime
+  time      String
   repeat    String?
   priority  priority
   fnshTime   Int?
