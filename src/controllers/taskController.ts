@@ -3,43 +3,27 @@ import TaskQuery from "@helpers/TaskQuery";
 
 const createtodo = async (req: Request, res: Response): Promise<void> => {
   try {
-    const { id } = req.body.payload as { id: string };
+    const { payload, ...taskData } = req.body;
+    const { id } = payload as { id: string };
 
-    const data = req.body;
-    const {
-      title,
-      day,
-      date,
-      note,
-      time,
-      repeat,
-      priority,
-      status,
-      fnshTime,
-    } = data;
-    const value = {
-      title,
-      day,
-      date,
-      note,
-      time,
-      repeat,
-      status,
-      priority,
-      fnshTime,
-    };
-    console.log("data: ", value);
-    console.log("id: ", id);
-    const result = await TaskQuery.CreateUserTask(value, id);
-    if (!result.success) {
-      res.status(400).json({ message: result.error });
+    if (!id) {
+      res.status(400).json({ message: "User ID is required" });
       return;
     }
-    res
-      .status(200)
-      .json({ message: "Task created successfully", data: result.data });
+
+    const result = await TaskQuery.CreateUserTask(taskData, id);
+
+    if (!result.success) {
+      res.status(400).json({ message: result.error });
+    } else {
+      res.status(200).json({
+        message: "Task created successfully",
+        data: result.data,
+      });
+    }
     return;
   } catch (error) {
+    console.error("Error creating task:", error);
     res.status(500).json({
       message:
         error instanceof Error ? error.message : "An unknown error occurred",
