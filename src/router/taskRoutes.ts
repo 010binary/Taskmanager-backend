@@ -17,10 +17,8 @@ router.put("/update", authMiddleware, updateTodo);
 
 router.get("/getall", authMiddleware, fetchAllTodo);
 
-router.get("/get/<date:string>", authMiddleware);
+router.get("/get/:id", authMiddleware, fetchTodoById);
 
-router.get("/get/<date:string>", authMiddleware);
-
-router.delete("/delete", authMiddleware, deleteTodo);
+router.delete("/delete/:id", authMiddleware, deleteTodo);
 
 export default router;

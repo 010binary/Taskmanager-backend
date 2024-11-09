@@ -1,7 +1,7 @@
 type Task = {
   title: string;
-  day: string;
-  date: string;
+  day?: string;
+  date?: string;
   note: string;
   status: true | false;
   time: string;

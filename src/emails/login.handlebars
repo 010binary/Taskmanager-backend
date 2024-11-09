@@ -1,0 +1,47 @@
+{{!-- Login from New Device Email --}}
+<script id="new-device-login-template" type="text/x-handlebars-template">
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .container {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .alert {
+            background-color: #fff3cd;
+            border: 1px solid #ffeeba;
+            color: #856404;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        .details {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>New Login Detected</h1>
+        <div class="alert">
+            <p>We noticed a new login to your PlanPal account from an unfamiliar device.</p>
+        </div>
+        <div class="details">
+            <h3>Login Details:</h3>
+            <p><strong>Time:</strong> {{loginTime}}</p>
+            <p><strong>IP Address:</strong> {{ipAddress}}</p>
+            <p><strong>Device Type:</strong> {{deviceType}}</p>
+            <p><strong>Device Name:</strong> {{deviceName}}</p>
+            <p><strong>Location:</strong> {{location}}</p>
+        </div>
+        <p>If this was you, you can ignore this email. If you don't recognize this login, please change your password immediately and contact our support team.</p>
+    </div>
+</body>
+</html>
+</script>

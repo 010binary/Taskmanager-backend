@@ -101,22 +101,22 @@ const fetchAllTodo = async (req: Request, res: Response): Promise<void> => {
 
 const fetchTodoById = async (req: Request, res: Response): Promise<void> => {
   try {
-    const { id } = req.body as { id: string };
+    const taskId = req.params.id as string;
 
-    if (!id) {
+    if (!taskId) {
       res.status(400).json({
         message: "Id was not provided in the request",
       });
       return;
     }
 
-    const result = await TaskQuery.FetchTaskById(id);
+    const result = await TaskQuery.FetchTaskById(taskId);
 
     if (!result.success) {
       res.status(400).json({ message: result.error });
     } else {
       res.status(200).json({
-        message: `Task with the ${id} found`,
+        message: `Task with the ${taskId} found`,
         data: result.data,
       });
     }
@@ -168,22 +168,22 @@ const fetchTodoByDay = async (req: Request, res: Response): Promise<void> => {
 
 const deleteTodo = async (req: Request, res: Response): Promise<void> => {
   try {
-    const { id } = req.body as { id: string };
+    const taskId = req.params.id as string;
 
-    if (!id) {
+    if (!taskId) {
       res.status(400).json({
         message: "Id was not provided in the request",
       });
       return;
     }
 
-    const result = await TaskQuery.DeleteUserTask(id);
+    const result = await TaskQuery.DeleteUserTask(taskId);
 
     if (!result.success) {
       res.status(400).json({ message: result.error });
     } else {
       res.status(200).json({
-        message: `Task with the ${id} deleted`,
+        message: `Task with the ${taskId} deleted`,
         data: result.data,
       });
     }
