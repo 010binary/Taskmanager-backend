@@ -30,7 +30,7 @@ app.use(
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(useragent.express());
-
+app.use(express.static("./public"));
 // Custom middleware
 app.use(logger);
 
