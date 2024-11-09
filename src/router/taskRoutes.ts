@@ -1,9 +1,9 @@
 import express, { Router } from "express";
 import { authMiddleware } from "@middleware/authMiddleware";
-import { createtodo } from "@controller/taskController";
+import { createTodo } from "@controller/taskController";
 
 const router: Router = express.Router();
 
-router.post("/create", authMiddleware, createtodo);
+router.post("/create", authMiddleware, createTodo);
 
 export default router;
