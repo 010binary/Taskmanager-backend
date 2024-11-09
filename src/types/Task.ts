@@ -1,15 +1,16 @@
+
 type Task = {
+  id: string;
   title: string;
-  day?: string;
-  date?: string;
+  day: string;
+  date: string;
   note: string;
-  status: true | false;
+  status: boolean;
   time: string;
   repeat: string | null;
   priority: "HIGH" | "MEDIUM" | "LOW";
   fnshTime: number | null;
-  createdAt: Date;
-  updatedAt: Date;
+  userId: string;
 };
 
 type CreateTaskParams = {
