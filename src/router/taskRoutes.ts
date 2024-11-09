@@ -6,7 +6,7 @@ import {
   fetchAllTodo,
   fetchTodoById,
   deleteTodo,
-  fetchTodoByDay,
+  fetchTodoByDate,
 } from "@controller/taskController";
 
 const router: Router = express.Router();
@@ -18,6 +18,8 @@ router.put("/update", authMiddleware, updateTodo);
 router.get("/getall", authMiddleware, fetchAllTodo);
 
 router.get("/get/:id", authMiddleware, fetchTodoById);
+
+router.get("/get", authMiddleware, fetchTodoByDate);
 
 router.delete("/delete/:id", authMiddleware, deleteTodo);
 

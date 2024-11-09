@@ -129,17 +129,31 @@ const FetchTaskById = async (taskId: string): Promise<Result<Task>> => {
 
 const FetchTaskByDate = async (
   userId: string,
-  date: string
+  startdate: string,
+  enddate: string
 ): Promise<Result<Task[]>> => {
   try {
     await connect();
-    const task = await prisma.todo.findMany({
-      where: { userId: userId, date: date },
+
+    const tasks = await prisma.todo.findMany({
+      where: {
+        userId,
+        date: {
+          gte: startdate,
+          lte: enddate,
+        },
+      },
+      orderBy: { date: "asc" }, // Optional: order tasks by date
     });
-    if (!task) {
-      return { success: false, error: "No task is avaliable for this day" };
+
+    if (!tasks || tasks.length === 0) {
+      return {
+        success: false,
+        error: "No tasks found within the specified date range",
+      };
     }
-    return { success: true, data: task };
+
+    return { success: true, data: tasks };
   } catch (error) {
     return {
       success: false,
