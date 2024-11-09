@@ -127,6 +127,30 @@ const FetchTaskById = async (taskId: string): Promise<Result<Task>> => {
   }
 };
 
+const FetchTaskByDate = async (
+  userId: string,
+  date: string
+): Promise<Result<Task[]>> => {
+  try {
+    await connect();
+    const task = await prisma.todo.findMany({
+      where: { userId: userId, date: date },
+    });
+    if (!task) {
+      return { success: false, error: "No task is avaliable for this day" };
+    }
+    return { success: true, data: task };
+  } catch (error) {
+    return {
+      success: false,
+      error:
+        error instanceof Error ? error.message : "An unknown error occurred",
+    };
+  } finally {
+    await prisma.$disconnect();
+  }
+};
+
 const DeleteUserTask = async (taskId: string): Promise<Result<null>> => {
   try {
     await connect();
@@ -153,6 +177,7 @@ const TaskQuery = {
   FetchTaskById,
   FetchUserTasks,
   UpdateUserTask,
+  FetchTaskByDate,
   CreateUserTask,
 };
 export default TaskQuery;

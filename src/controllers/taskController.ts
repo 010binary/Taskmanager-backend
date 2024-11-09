@@ -132,6 +132,40 @@ const fetchTodoById = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
+const fetchTodoByDay = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const { payload, date } = req.body;
+    const { id } = payload as { id: string };
+
+    if (!date) {
+      res.status(400).json({
+        message: "date was not provided in the request",
+      });
+      return;
+    }
+
+    const result = await TaskQuery.FetchTaskByDate(id, date);
+
+    if (!result.success) {
+      res.status(400).json({ message: result.error });
+    } else {
+      res.status(200).json({
+        message: `Task with the ${id} found`,
+        data: result.data,
+      });
+    }
+
+    return;
+  } catch (error) {
+    console.error("error fetching task: ", error);
+    res.status(500).json({
+      message:
+        error instanceof Error ? error.message : "An unknown error occurred",
+    });
+    return;
+  }
+};
+
 const deleteTodo = async (req: Request, res: Response): Promise<void> => {
   try {
     const { id } = req.body as { id: string };
@@ -165,4 +199,11 @@ const deleteTodo = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
-export { createTodo, updateTodo, fetchAllTodo, fetchTodoById, deleteTodo };
+export {
+  createTodo,
+  updateTodo,
+  fetchAllTodo,
+  fetchTodoById,
+  deleteTodo,
+  fetchTodoByDay,
+};
