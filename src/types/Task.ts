@@ -1,42 +1,15 @@
-import { priority } from "@prisma/client";
+import { todo } from "@prisma/client";
 
-type Task = {
-  id: string;
-  title: string;
-  day: string;
-  date: string;
-  note: string;
-  status: boolean;
-  time: string;
-  repeat: boolean;
-  priority: priority;
-  fnshTime: number | null;
-  userId: string;
-};
+type Task = todo;
 
-type CreateTaskParams = {
-  title: string;
-  day: string;
-  date: string;
-  note: string;
-  status: boolean;
-  time: string;
-  repeat?: boolean;
-  priority: priority;
-  fnshTime?: string;
-};
+type Params<T> = T;
 
-type UpdateTaskParams = {
-  title?: string;
-  day?: string;
-  date?: string;
-  note?: string;
-  status?: boolean;
-  time?: string;
-  repeat?: boolean;
-  priority?: priority;
-  fnshTime?: string;
-};
+type CreateTaskParams = Params<
+  Omit<Task, "userId" | "id" | "createdAt" | "updatedAt">
+>;
+type UpdateTaskParams = Params<
+  Omit<Task, "userId" | "id" | "createdAt" | "updatedAt">
+>;
 
 type Result<T> =
   | {
