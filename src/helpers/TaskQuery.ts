@@ -25,7 +25,7 @@ const CreateUserTask = async (
         time: CreateTaskParams.time,
         repeat: Boolean(CreateTaskParams.repeat) || false,
         priority: CreateTaskParams.priority,
-        fnshTime: Number(CreateTaskParams.fnshTime),
+        fnshTime: CreateTaskParams.fnshTime,
         userId: userId,
       },
     });
@@ -143,7 +143,7 @@ const FetchTaskByDate = async (
           lte: enddate,
         },
       },
-      orderBy: { date: "asc" }, // Optional: order tasks by date
+      orderBy: { date: "asc" },
     });
 
     if (!tasks || tasks.length === 0) {
