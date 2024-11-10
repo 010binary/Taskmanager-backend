@@ -1,11 +1,10 @@
 import connect from "@orm/connect";
 import prisma from "@orm/index";
 import {
-  CreateTask,
-  CreateTaskParams,
-  Result,
   Task,
+  CreateTask,
   UpdateTask,
+  CreateTaskParams,
   UpdateTaskParams,
 } from "../types/Task";
 
@@ -82,7 +81,6 @@ const UpdateUserTask = async (
   } finally {
     await prisma.$disconnect();
   }
-};
 
 const FetchUserTasks = async (userId: string): Promise<Result<Task[]>> => {
   try {
@@ -104,7 +102,6 @@ const FetchUserTasks = async (userId: string): Promise<Result<Task[]>> => {
   } finally {
     await prisma.$disconnect();
   }
-};
 
 const FetchTaskById = async (taskId: string): Promise<Result<Task>> => {
   try {
@@ -125,7 +122,6 @@ const FetchTaskById = async (taskId: string): Promise<Result<Task>> => {
   } finally {
     await prisma.$disconnect();
   }
-};
 
 const FetchTaskByDate = async (
   userId: string,
@@ -184,14 +180,6 @@ const DeleteUserTask = async (taskId: string): Promise<Result<null>> => {
   } finally {
     await prisma.$disconnect();
   }
-};
+}
 
-const TaskQuery = {
-  DeleteUserTask,
-  FetchTaskById,
-  FetchUserTasks,
-  UpdateUserTask,
-  FetchTaskByDate,
-  CreateUserTask,
-};
 export default TaskQuery;
