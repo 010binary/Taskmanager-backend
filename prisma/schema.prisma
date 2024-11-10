@@ -50,9 +50,9 @@ model todo {
   note      String
   status    Boolean  @default(false)
   time      String
-  repeat    String?
+  repeat    Boolean @default(false)
   priority  priority
-  fnshTime   Int?
+  fnshTime   String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
