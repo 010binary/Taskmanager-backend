@@ -24,7 +24,7 @@ const handlebarOptions = {
   extName: ".handlebars",
 };
 
-transporter.use("compile", hbs(handlebarOptions));
+// transporter.use("compile", hbs(handlebarOptions));
 
 export default function sendMail(
   usermail: string,
