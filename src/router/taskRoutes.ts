@@ -19,7 +19,7 @@ router.get("/getall", authMiddleware, fetchAllTodo);
 
 router.get("/get/:id", authMiddleware, fetchTodoById);
 
-router.get("/get", authMiddleware, fetchTodoByDate);
+router.get("/getquery", authMiddleware, fetchTodoByDate);
 
 router.delete("/delete/:id", authMiddleware, deleteTodo);
 
