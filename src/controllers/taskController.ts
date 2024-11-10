@@ -35,7 +35,7 @@ const createTodo = async (req: Request, res: Response): Promise<void> => {
 const updateTodo = async (req: Request, res: Response): Promise<void> => {
   try {
     const { payload, ...taskdata } = req.body;
-    const { taskId } = taskdata.id as { taskId: string };
+    const taskId = taskdata.id as string;
 
     if (!taskId) {
       res.status(400).json({
@@ -141,15 +141,6 @@ const fetchTodoByDate = async (req: Request, res: Response): Promise<void> => {
       res.status(400).json({ message: "Start date must be provided" });
       return;
     }
-
-    console.log(
-      "Fetching tasks for user:",
-      id,
-      "from:",
-      startdate,
-      "to:",
-      enddate || "current date"
-    );
 
     const result = await TaskQuery.FetchTaskByDate(
       id,
