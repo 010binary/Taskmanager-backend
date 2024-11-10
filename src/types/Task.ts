@@ -1,3 +1,5 @@
+import { priority } from "@prisma/client";
+
 type Task = {
   title: string;
   day?: string;
@@ -5,8 +7,8 @@ type Task = {
   note: string;
   status: true | false;
   time: string;
-  repeat: string | null;
-  priority: "HIGH" | "MEDIUM" | "LOW";
+  repeat: boolean;
+  priority: priority;
   fnshTime: number | null;
   createdAt: Date;
   updatedAt: Date;
@@ -19,8 +21,8 @@ type CreateTaskParams = {
   note: string;
   status: boolean;
   time: string;
-  repeat?: string;
-  priority: "HIGH" | "MEDIUM" | "LOW";
+  repeat?: boolean;
+  priority: priority;
   fnshTime?: string;
 };
 
@@ -31,8 +33,8 @@ type UpdateTaskParams = {
   note?: string;
   status?: boolean;
   time?: string;
-  repeat?: string;
-  priority?: "HIGH" | "MEDIUM" | "LOW";
+  repeat?: boolean;
+  priority?: priority;
   fnshTime?: string;
 };
 

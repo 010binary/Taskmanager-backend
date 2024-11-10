@@ -23,7 +23,7 @@ const CreateUserTask = async (
         note: CreateTaskParams.note,
         status: CreateTaskParams.status,
         time: CreateTaskParams.time,
-        repeat: CreateTaskParams.repeat,
+        repeat: Boolean(CreateTaskParams.repeat),
         priority: CreateTaskParams.priority,
         fnshTime: Number(CreateTaskParams.fnshTime),
         userId: userId,
