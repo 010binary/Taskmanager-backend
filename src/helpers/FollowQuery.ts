@@ -60,9 +60,37 @@ const Follower = async (userId: string): Promise<Result<Follows[]>> => {
   }
 };
 
+const Following = async (userId: string): Promise<Result<Follows[]>> => {
+  try {
+    await connect();
+    const following = await prisma.follow.findMany({
+      where: { followerId: userId },
+      include: { following: true },
+    });
+    const followersData = following.map((following) => {
+      const { id, fullname, occupation } = following.following;
+      return { id, fullname, occupation };
+    });
+
+    return {
+      success: true,
+      data: followersData,
+    };
+  } catch (error) {
+    return {
+      success: false,
+      error:
+        error instanceof Error ? error.message : "An unknown error occured",
+    };
+  } finally {
+    await prisma.$disconnect();
+  }
+};
+
 const FollowQuery = {
   FollowCount,
   Follower,
+  Following,
 };
 
 export default FollowQuery;

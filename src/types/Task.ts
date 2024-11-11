@@ -1,6 +1,6 @@
-import { todo } from "@prisma/client";
+import { Todo } from "@prisma/client";
 
-type Task = todo;
+type Task = Todo;
 
 type Params<T> = T;
 
