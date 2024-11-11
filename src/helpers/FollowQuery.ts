@@ -1,6 +1,13 @@
 import connect from "@orm/connect";
 import prisma from "@orm/index";
-import { FollowCount, Follows, Result } from "../types/Follow";
+import {
+  AddFollowing,
+  FollowCount,
+  Follows,
+  Result,
+  RemoveFollowing,
+} from "../types/Follow";
+import { Prisma } from "@prisma/client";
 
 const FollowCount = async (userId: string): Promise<FollowCount> => {
   try {
@@ -87,10 +94,75 @@ const Following = async (userId: string): Promise<Result<Follows[]>> => {
   }
 };
 
+const AddFollowing = async (
+  followerId: string,
+  followingId: string
+): Promise<AddFollowing> => {
+  try {
+    await connect();
+    const _ = await prisma.follow.create({
+      data: {
+        followerId: followerId,
+        followingId: followingId,
+      },
+    });
+    return {
+      success: true,
+      data: { message: "following added" },
+    };
+  } catch (error) {
+    if (
+      error instanceof Prisma.PrismaClientKnownRequestError &&
+      error.code === "P2002"
+    ) {
+      return {
+        success: false,
+        error: "You are already following this user.",
+      };
+    }
+    return {
+      success: false,
+      error:
+        error instanceof Error ? error.message : "An unknown error occured",
+    };
+  } finally {
+    await prisma.$disconnect();
+  }
+};
+
+const RemoveFollowing = async (
+  followerId: string,
+  followingId: string
+): Promise<RemoveFollowing> => {
+  try {
+    await connect();
+    const _ = await prisma.follow.deleteMany({
+      where: {
+        followerId: followerId,
+        followingId: followingId,
+      },
+    });
+    return {
+      success: true,
+      data: { message: "following remove" },
+    };
+  } catch (error) {
+    return {
+      success: false,
+      error:
+        error instanceof Error ? error.message : "An unknown error occured",
+    };
+  } finally {
+    await prisma.$disconnect();
+  }
+};
+
 const FollowQuery = {
   FollowCount,
   Follower,
   Following,
+  AddFollowing,
+  RemoveFollowing,
 };
 
 export default FollowQuery;

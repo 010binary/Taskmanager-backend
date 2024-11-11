@@ -20,5 +20,7 @@ type Result<T> =
     };
 
 type FollowCount = Result<Follow>;
+type AddFollowing = Result<{ message: string }>;
+type RemoveFollowing = Result<{ message: string }>;
 
-export type { FollowCount, Follows, Result };
+export type { FollowCount, Follows, Result, AddFollowing, RemoveFollowing };

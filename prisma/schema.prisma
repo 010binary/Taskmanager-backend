@@ -44,6 +44,9 @@ model Follow {
   // Relations
   follower    User     @relation("Following", fields: [followerId], references: [id])
   following   User     @relation("Followers", fields: [followingId], references: [id])
+
+   // Ensure unique follow relationship
+  @@unique([followerId, followingId])
 }
 
 model Todo {
