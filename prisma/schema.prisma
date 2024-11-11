@@ -27,8 +27,8 @@ model User {
   updatedAt DateTime @updatedAt
 
   
-  todo todo[]
-  streak streak[]
+  todo Todo[]
+  streak Streak[]
   following   Follow[]  @relation("Following")
   followers   Follow[]  @relation("Followers")
 
@@ -46,7 +46,7 @@ model Follow {
   following   User     @relation("Followers", fields: [followingId], references: [id])
 }
 
-model todo {
+model Todo {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   day       String
   date      String
@@ -65,7 +65,7 @@ model todo {
   user      User     @relation(fields: [userId], references: [id])
 }
 
-model streak {
+model Streak {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   count     Int
   createdAt DateTime @default(now())
