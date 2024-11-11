@@ -26,20 +26,24 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  follow follow[]
+  
   todo todo[]
   streak streak[]
+  following   Follow[]  @relation("Following")
+  followers   Follow[]  @relation("Followers")
 
 }
 
-model follow {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  following String[]
-  follower  String[]
+model Follow {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  followerId  String   @db.ObjectId
+  followingId String   @db.ObjectId
 
-  // Relation
-  userId    String   @db.ObjectId
-  user      User     @relation(fields: [userId], references: [id])
+  createdAt   DateTime @default(now())
+
+  // Relations
+  follower    User     @relation("Following", fields: [followerId], references: [id])
+  following   User     @relation("Followers", fields: [followingId], references: [id])
 }
 
 model todo {
@@ -50,9 +54,9 @@ model todo {
   note      String
   status    Boolean  @default(false)
   time      String
-  repeat    Boolean @default(false)
+  repeat    String @default("Never")
   priority  priority
-  fnshTime   String
+  finishTime   String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 

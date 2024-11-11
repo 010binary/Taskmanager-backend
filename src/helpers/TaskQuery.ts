@@ -23,9 +23,9 @@ const CreateUserTask = async (
         note: CreateTaskParams.note,
         status: CreateTaskParams.status,
         time: CreateTaskParams.time,
-        repeat: Boolean(CreateTaskParams.repeat) || false,
+        repeat: CreateTaskParams.repeat,
         priority: CreateTaskParams.priority,
-        fnshTime: CreateTaskParams.fnshTime,
+        finishTime: CreateTaskParams.finishTime,
         userId: userId,
       },
     });
@@ -61,7 +61,7 @@ const UpdateUserTask = async (
         time: updateData.time,
         repeat: updateData.repeat,
         priority: updateData.priority,
-        fnshTime: updateData.fnshTime,
+        finishTime: updateData.finishTime,
       }).filter(([_, value]) => value !== undefined)
     );
 
