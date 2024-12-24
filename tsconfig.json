@@ -18,9 +18,10 @@
       "@utils/*": ["./src/utils/*"],
       "@orm/*": ["./prisma/*"],
       "@middleware/*": ["./src/middleware/*"],
-      "@types/*": ["./src/types/*"]
+      "@types/*": ["./src/types/*"],
+      "@emails/*": ["./src/emails/*"]
     }
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*"], 
   "exclude": ["node_modules", "dist", "src/tests"]
 }

@@ -6,3 +6,4 @@ addAlias("@helpers", resolve(__dirname, "helpers"));
 addAlias("@utils", resolve(__dirname, "utils"));
 addAlias("@orm", resolve(__dirname, "../prisma"));
 addAlias("@middleware", resolve(__dirname, "middleware"));
+addAlias("@emails", resolve(__dirname, "emails"));

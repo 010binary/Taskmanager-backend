@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import UserQuery from "@helpers/AuthQuery";
 import { invalidateToken, rotateTokens, generateTokens } from "@utils/jwt";
 import { RegisterParams } from "../types/Auth";
+//import sendMail from "@emails/index";
 
 const register = async (req: Request, res: Response): Promise<void> => {
   try {
@@ -39,6 +40,9 @@ const register = async (req: Request, res: Response): Promise<void> => {
       user: result.data,
       tokens,
     });
+
+    //const _ = sendMail(result.data.email, "register", {name: result.data.fullname, email: result.data.email});
+
     return;
   } catch (error) {
     res.status(500).json({
