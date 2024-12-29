@@ -2,7 +2,6 @@ import { Request, Response } from "express";
 import UserQuery from "@helpers/AuthQuery";
 import { invalidateToken, rotateTokens, generateTokens } from "@utils/jwt";
 import { RegisterParams } from "../types/Auth";
-//import sendMail from "@emails/index";
 
 const register = async (req: Request, res: Response): Promise<void> => {
   try {
@@ -18,7 +17,7 @@ const register = async (req: Request, res: Response): Promise<void> => {
 
     for (const { key, name } of requiredFields) {
       if (!data[key]) {
-        res.status(400).json({ message: `${name} is required` });
+        res.status(400).json({ error: "VALIDATION_ERROR", message: `${name} is required` });
         return;
       }
     }
@@ -27,7 +26,7 @@ const register = async (req: Request, res: Response): Promise<void> => {
     const result = await UserQuery.Register(data);
 
     if (!result.success) {
-      res.status(400).json({ message: result.error });
+      res.status(400).json({ error: "USER_EXISTS", message: result.error });
       return;
     }
 
@@ -41,7 +40,6 @@ const register = async (req: Request, res: Response): Promise<void> => {
       tokens,
     });
 
-    //const _ = sendMail(result.data.email, "register", {name: result.data.fullname, email: result.data.email});
 
     return;
   } catch (error) {
@@ -67,7 +65,7 @@ const login = async (req: Request, res: Response): Promise<void> => {
     ];
     for (const { key, name } of requiredFields) {
       if (!data[key]) {
-        res.status(400).json({ message: `${name} is required` });
+        res.status(400).json({ error: "VALIDATION_ERROR", message: `${name} is required` });
         return;
       }
     }
@@ -75,7 +73,7 @@ const login = async (req: Request, res: Response): Promise<void> => {
     const result = await UserQuery.Login(email, password);
 
     if (!result.success) {
-      res.status(400).json({ message: result.error });
+      res.status(401).json({ error: "INVALID_CREDENTIALS", message: result.error });
       return;
     }
 

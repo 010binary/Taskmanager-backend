@@ -6,6 +6,8 @@ import logger from "@middleware/logger";
 import useragent from "express-useragent";
 import router from "./router/";
 import "./register-paths";
+import swaggerUi from "swagger-ui-express"
+import swaggerSpec from "./swaggerSpecs";
 
 dotenv.config();
 
@@ -36,6 +38,7 @@ app.use(logger);
 
 // Routes
 app.use("/api/v1", router);
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);

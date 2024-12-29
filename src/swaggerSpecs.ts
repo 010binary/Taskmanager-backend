@@ -1,30 +1,48 @@
 import swaggerJSDoc from "swagger-jsdoc";
 
 const swaggerDefinitions = {
-  openapi:'3.1.1',
-  info:{
-    title:'taskmanager-app',
-    version:'1.0.0',
-    description:'Api docs with swagger'
+  openapi: '3.1.1',
+  info: {
+    title: 'Taskmanager-app',
+    version: '1.0.0',
+    description: 'Api docs with swagger',
+    license: {
+      name: 'Licensed Under MIT',
+      url: 'https://spdx.org/licenses/MIT.html',
+    },
+    contact: {
+      name: 'Augustine Chukwuemeka',
+      url: 'https://portfolio-mu-gold-43.vercel.app/',
+    },
   },
-  server: [
+  servers: [
     {
-      url:'http://localhost:3000',
-      description:'Development server'
+      url: 'http://localhost:3000',
+      description: 'Development server'
     },
     {
-      url:'https://planpal-backend-xsr9.onrender.com',
-      description:'Liveurl'
+      url: 'https://planpal-backend-xsr9.onrender.com',
+      description: 'Liveurl'
     }
   ]
 }
 
 const options = {
-  swaggerDefinitions,
+  definition: swaggerDefinitions,
   apis: [
-    './router/*.ts'
+    './src/docs/*.ts'
   ]
 }
 
-const swaggerSpec = swaggerJSDoc(options);
-export default swaggerSpec;
+
+
+let swaggerSpec;
+
+try {
+  swaggerSpec = swaggerJSDoc(options);
+  console.log('Swagger spec generated successfully');
+} catch (error) {
+  console.error('Error generating Swagger spec:', error);
+}
+
+export default swaggerSpec as any;
