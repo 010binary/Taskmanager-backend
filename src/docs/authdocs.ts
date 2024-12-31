@@ -126,11 +126,7 @@
  *                 value:
  *                   error: USER_EXISTS
  *                   message: User already exists
- */
-
-//endpoint: /api/v1/auth/login
-/**
- * @openapi
+ * 
  * /api/v1/auth/login:
  *   post:
  *     summary: Authenticate user and get tokens
@@ -277,11 +273,7 @@
  *                 value:
  *                   error: USER_NOT_FOUND
  *                   message: User not found
- */
-
-//endpoint: /api/v1/auth/refresh
-/**
- * @openapi
+ * 
  * /api/v1/auth/refresh:
  *   post:
  *     summary: Generate new access token
@@ -357,11 +349,7 @@
  *                 summary: Invalid Access Token
  *                 value:
  *                   message: Invalid access token
- */
-
-//endpoint: /api/v1/auth/logout
-/**
- * @openapi
+ * 
  * /api/v1/auth/logout:
  *   post:
  *     summary: Logout user
@@ -405,4 +393,305 @@
  *               example:
  *                 error: INVALID_TOKEN
  *                 message: Invalid access token
+ * 
+ * /api/v1/auth/checkmail:
+ *   post:
+ *     summary: Check email for password recovery
+ *     description: Verifies if the email exists in the system and returns user details with a temporary access token for password recovery.
+ *     tags:
+ *       - Authentication
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - email
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 format: email
+ *                 example: user@example.com
+ *     responses:
+ *       200:
+ *         description: Email found and user verified
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Email found
+ *                 user:
+ *                   type: object
+ *                   properties:
+ *                     id:
+ *                       type: string
+ *                       example: 67318ba13dba48848eaab2b8
+ *                     fullname:
+ *                       type: string
+ *                       example: John Smith
+ *                     email:
+ *                       type: string
+ *                       example: user@example.com
+ *                     occupation:
+ *                       type: string
+ *                       example: Software Engineer
+ *                     social:
+ *                       type: string
+ *                       nullable: true
+ *                       example: null
+ *                     isVisible:
+ *                       type: boolean
+ *                       example: true
+ *                     image:
+ *                       type: string
+ *                       nullable: true
+ *                       example: null
+ *                     createdAt:
+ *                       type: string
+ *                       format: date-time
+ *                       example: 2024-11-11T04:44:17.738Z
+ *                     updatedAt:
+ *                       type: string
+ *                       format: date-time
+ *                       example: 2024-11-11T04:44:17.738Z
+ *                 token:
+ *                   type: object
+ *                   properties:
+ *                     accessToken:
+ *                       type: string
+ *                       example: eyJhbGciOiJIUzI1NiJ9...
+ *                     expiresIn:
+ *                       type: integer
+ *                       example: 600
+ *                     tokenType:
+ *                       type: string
+ *                       example: Bearer
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               oneOf:
+ *                 - type: object
+ *                   properties:
+ *                     error:
+ *                       type: string
+ *                       enum: [VALIDATION_ERROR]
+ *                     message:
+ *                       type: string
+ *                     field:
+ *                       type: string
+ *                   required:
+ *                     - error
+ *                     - message
+ *                     - field
+ *                   example:
+ *                     error: VALIDATION_ERROR
+ *                     message: Email is required
+ *                     field: email
+ *                 - type: object
+ *                   properties:
+ *                     error:
+ *                       type: string
+ *                       enum: [USER_NOT_FOUND]
+ *                     message:
+ *                       type: string
+ *                   required:
+ *                     - error
+ *                     - message
+ *                   example:
+ *                     error: USER_NOT_FOUND
+ *                     message: User not found
+ *             examples:
+ *               validationError:
+ *                 summary: Validation Error
+ *                 value:
+ *                   error: VALIDATION_ERROR
+ *                   message: Email is required
+ *                   field: email
+ *               userNotFound:
+ *                 summary: User Not Found
+ *                 value:
+ *                   error: USER_NOT_FOUND
+ *                   message: User not found
+ * 
+ * /api/v1/auth/forgotpassword:
+ *   post:
+ *     summary: Reset forgotten password
+ *     description: Changes user's password during password recovery flow. Requires temporary access token from checkmail endpoint.
+ *     tags:
+ *       - Authentication
+ *     parameters:
+ *       - in: header
+ *         name: Authorization
+ *         required: true
+ *         description: Temporary access token with 'Bearer' prefix from checkmail endpoint
+ *         schema:
+ *           type: string
+ *           pattern: '^Bearer [A-Za-z0-9-_=]+\.[A-Za-z0-9-_=]+\.[A-Za-z0-9-_.+/=]*$'
+ *           example: Bearer eyJhbGciOiJIUzI1NiJ9...
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - email
+ *               - password
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 format: email
+ *                 example: user@example.com
+ *               password:
+ *                 type: string
+ *                 format: password
+ *                 example: newPassword123
+ *     responses:
+ *       200:
+ *         description: Password successfully changed
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Password Changed success
+ *       400:
+ *         description: Validation Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   enum: [VALIDATION_ERROR]
+ *                 message:
+ *                   type: string
+ *                 field:
+ *                   type: string
+ *               required:
+ *                 - error
+ *                 - message
+ *                 - field
+ *               example:
+ *                 error: VALIDATION_ERROR
+ *                 message: Password is required
+ *                 field: password
+ *       401:
+ *         description: Unauthorized - Invalid or expired token
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   enum: [TOKEN_EXPIRED]
+ *                 message:
+ *                   type: string
+ *               example:
+ *                 error: TOKEN_EXPIRED
+ *                 message: exp claim timestamp check failed
+ * 
+ * 
+ * /api/v1/auth/changepassword:
+ *   post:
+ *     summary: Change password while logged in
+ *     description: Allows authenticated users to change their password by providing their current password.
+ *     tags:
+ *       - Authentication
+ *     parameters:
+ *       - in: header
+ *         name: Authorization
+ *         required: true
+ *         description: Access token with 'Bearer' prefix
+ *         schema:
+ *           type: string
+ *           pattern: '^Bearer [A-Za-z0-9-_=]+\.[A-Za-z0-9-_=]+\.[A-Za-z0-9-_.+/=]*$'
+ *           example: Bearer eyJhbGciOiJIUzI1NiJ9...
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - oldPassword
+ *               - newPassword
+ *             properties:
+ *               oldPassword:
+ *                 type: string
+ *                 format: password
+ *                 example: currentPassword123
+ *               newPassword:
+ *                 type: string
+ *                 format: password
+ *                 example: newPassword123
+ *     responses:
+ *       200:
+ *         description: Password successfully changed
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Password changed successfully
+ *       400:
+ *         description: Validation Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   enum: [VALIDATION_ERROR]
+ *                 message:
+ *                   type: string
+ *                 field:
+ *                   type: string
+ *               required:
+ *                 - error
+ *                 - message
+ *                 - field
+ *               example:
+ *                 error: VALIDATION_ERROR
+ *                 message: Old password is required
+ *                 field: oldPassword
+ *       401:
+ *         description: Unauthorized - Invalid token or password
+ *         content:
+ *           application/json:
+ *             schema:
+ *               oneOf:
+ *                 - type: object
+ *                   properties:
+ *                     error:
+ *                       type: string
+ *                       enum: [TOKEN_EXPIRED]
+ *                     message:
+ *                       type: string
+ *                   example:
+ *                     error: TOKEN_EXPIRED
+ *                     message: exp claim timestamp check failed
+ *                 - type: object
+ *                   properties:
+ *                     error:
+ *                       type: string
+ *                       enum: [INVALID_CREDENTIALS]
+ *                     message:
+ *                       type: string
+ *                   example:
+ *                     error: INVALID_CREDENTIALS
+ *                     message: Invalid old password
  */

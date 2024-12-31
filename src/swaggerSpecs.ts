@@ -24,7 +24,16 @@ const swaggerDefinitions = {
       url: 'https://planpal-backend-xsr9.onrender.com',
       description: 'Liveurl'
     }
-  ]
+  ],
+  components: {
+    securitySchemes: {
+      bearerAuth: {
+        type: 'http',
+        scheme: 'bearer',
+        bearerFormat: 'JWT'
+      }
+    }
+  }
 }
 
 const options = {

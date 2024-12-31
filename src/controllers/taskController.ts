@@ -16,7 +16,7 @@ const createTodo = async (req: Request, res: Response): Promise<void> => {
     if (!result.success) {
       res.status(400).json({ message: result.error });
     } else {
-      res.status(200).json({
+      res.status(201).json({
         message: "Task created successfully",
         data: result.data,
       });
