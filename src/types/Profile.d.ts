@@ -22,15 +22,16 @@ type UpdateParams = {
 
 type Result<T> =
   | {
-      success: true;
-      data: T;
-    }
+    success: true;
+    data: T;
+  }
   | {
-      success: false;
-      error: string;
-    };
+    success: false;
+    error: string;
+  };
 
 // Specific result types
+type UserResult = Result<Omit<User, "password" | "createdAt" | "updatedAt">>;
 type UpdateResult = Result<Omit<User, "password">>;
 type Status = Result<
   Omit<
@@ -46,4 +47,4 @@ type Status = Result<
   >
 >;
 
-export type { UpdateParams, UpdateResult, Status };
+export type { UpdateParams, UpdateResult, Status, UserResult };

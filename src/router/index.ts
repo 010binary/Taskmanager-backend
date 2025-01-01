@@ -11,8 +11,4 @@ router.use("/profile", profileRoutes);
 router.use("/tasks", taskRoutes);
 router.use("/follow", followRoutes);
 
-router.get("/", (req: Request, res: Response) => {
-  res.send(req.useragent).status(200);
-});
-
 export default router;

@@ -1,6 +1,6 @@
 import connect from "@orm/connect";
 import prisma from "@orm/index";
-import type { UpdateResult, UpdateParams, Status } from "../types/Profile";
+import type { UpdateResult, UpdateParams, Status, UserResult } from "../types/Profile";
 
 const Update = async (params: UpdateParams): Promise<UpdateResult> => {
   try {
@@ -80,9 +80,41 @@ const Status = async (id: string): Promise<Status> => {
   }
 };
 
+const User = async (id: string): Promise<UserResult> => {
+  try {
+    await connect();
+
+    const user = await prisma.user.findUnique({
+      where: { id },
+    });
+
+    if (!user) {
+      return {
+        success: false,
+        error: "User not found",
+      };
+    }
+    const { password, createdAt, updatedAt, ...data } = user;
+    return {
+      success: true,
+      data: data,
+    };
+
+  } catch (error) {
+    return {
+      success: false,
+      error:
+        error instanceof Error ? error.message : "An unknown error occurred",
+    };
+  } finally {
+    await prisma.$disconnect();
+  }
+}
+
 const ProfileQuery = {
   Update,
   Status,
+  User
 };
 
 export default ProfileQuery;

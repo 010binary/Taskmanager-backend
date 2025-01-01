@@ -28,7 +28,6 @@ model User {
 
   
   todo Todo[]
-  streak Streak[]
   following   Follow[]  @relation("Following")
   followers   Follow[]  @relation("Followers")
 
