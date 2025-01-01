@@ -1,9 +1,10 @@
-import { Request, Response } from "express";
+import { Response } from "express";
+import { CustomRequest } from "../types/Request";
 import FollowQuery from "@helpers/FollowQuery";
 
-const getFollowsCount = async (req: Request, res: Response): Promise<void> => {
+const getFollowsCount = async (req: CustomRequest, res: Response): Promise<void> => {
   try {
-    const { id } = req.body.payload as { id: string };
+    const { id } = req.payload as { id: string };
 
     const result = await FollowQuery.FollowCount(id);
 
@@ -29,9 +30,9 @@ const getFollowsCount = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
-const getFollowing = async (req: Request, res: Response): Promise<void> => {
+const getFollowing = async (req: CustomRequest, res: Response): Promise<void> => {
   try {
-    const { id } = req.body.payload as { id: string };
+    const { id } = req.payload as { id: string };
 
     const result = await FollowQuery.Following(id);
 
@@ -65,9 +66,9 @@ const getFollowing = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
-const getFollower = async (req: Request, res: Response): Promise<void> => {
+const getFollower = async (req: CustomRequest, res: Response): Promise<void> => {
   try {
-    const { id } = req.body.payload as { id: string };
+    const { id } = req.payload as { id: string };
 
     const result = await FollowQuery.Follower(id);
 
@@ -100,9 +101,15 @@ const getFollower = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
-const addfollow = async (req: Request, res: Response): Promise<void> => {
+const addfollow = async (req: CustomRequest, res: Response): Promise<void> => {
   try {
-    const followerId = req.body.payload.id as string;
+    if (!req.payload) {
+      res.status(400).json({
+        message: "Invalid request payload",
+      });
+      return;
+    }
+    const followerId = req.payload.id as string;
     const followingId = req.body.id as string;
 
     if (!followingId) {
@@ -135,9 +142,15 @@ const addfollow = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
-const removefollow = async (req: Request, res: Response): Promise<void> => {
+const removefollow = async (req: CustomRequest, res: Response): Promise<void> => {
   try {
-    const followerId = req.body.payload.id as string;
+    if (!req.payload) {
+      res.status(400).json({
+        message: "Invalid request payload",
+      });
+      return;
+    }
+    const followerId = req.payload.id as string;
     const followingId = req.body.id as string;
 
     if (!followingId) {

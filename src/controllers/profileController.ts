@@ -1,9 +1,10 @@
-import { Request, Response } from "express";
+import { Response } from "express";
 import ProfileQuery from "@helpers/ProfileQuery";
+import { CustomRequest } from "../types/Request";
 
-const changestatus = async (req: Request, res: Response): Promise<void> => {
+const changestatus = async (req: CustomRequest, res: Response): Promise<void> => {
   try {
-    const { id } = req.body.payload as { id: string };
+    const { id } = req.payload as { id: string };
 
     const result = await ProfileQuery.Status(id);
 
@@ -26,25 +27,22 @@ const changestatus = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
-const updateprofile = async (req: Request, res: Response): Promise<void> => {
+const updateprofile = async (req: CustomRequest, res: Response): Promise<void> => {
   try {
-  //const { id } = req.body.payload as { id: string };
-     // const { fileUrl, ...otherFields } = req.body;
+    const { id } = req.payload as { id: string };
 
-    console.log("Request payload: ", req.body);
-    console.log("file data: ", req.file);
-    
-    //const result = await ProfileQuery.Status(id);
-    //
-    //if (!result.success) {
-    //  res.status(400).json({ message: result.error });
-    //  return;
-    //}
-    //
-    //res.status(200).json({
-    //  message: "Status changed successfully",
-    //  value: result.data.isVisible,
-    //});
+    console.log("data sent", { id, ...req.body });
+    const result = await ProfileQuery.Update({ id, ...req.body });
+
+    if (!result.success) {
+      res.status(400).json({ message: result.error });
+      return;
+    }
+
+    res.status(200).json({
+      message: "Status changed successfully",
+      result: result.data,
+    });
     return;
     // Update
   } catch (error) {

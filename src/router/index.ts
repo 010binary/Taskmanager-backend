@@ -1,5 +1,4 @@
-import { Request, Response } from "express";
-import { Router } from "express";
+import { Request, Response, Router } from "express";
 import authRoutes from "./authRoutes";
 import profileRoutes from "./profileRoutes";
 import taskRoutes from "./taskRoutes";

@@ -5,7 +5,7 @@ import path from "path";
 
 export const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    const uploadDir = path.join(__dirname, "../../uploads");
+    const uploadDir = path.join(__dirname, "../../public/uploads");
     if (!fs.existsSync(uploadDir)) {
       fs.mkdirSync(uploadDir, { recursive: true });
     }
@@ -42,8 +42,7 @@ export const formdataMiddleware = async (
     }
 
     if (req.file) {
-      const fileUrl = `/uploads/${req.file.filename}`;
-      req.body.fileUrl = fileUrl;
+      req.body.image = req.file.path;
     }
     next();
   });

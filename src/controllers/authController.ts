@@ -1,9 +1,10 @@
-import { Request, Response } from "express";
+import { Response } from "express";
+import { CustomRequest } from "../types/Request";
 import UserQuery from "@helpers/AuthQuery";
 import { invalidateToken, rotateTokens, generateTokens } from "@utils/jwt";
 import { RegisterParams } from "../types/Auth";
 
-const register = async (req: Request, res: Response): Promise<void> => {
+const register = async (req: CustomRequest, res: Response): Promise<void> => {
   try {
     const data = req.body as RegisterParams;
 
@@ -51,7 +52,7 @@ const register = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
-const login = async (req: Request, res: Response): Promise<void> => {
+const login = async (req: CustomRequest, res: Response): Promise<void> => {
   try {
     const data = req.body as {
       email: string;
@@ -96,7 +97,7 @@ const login = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
-const refresh = async (req: Request, res: Response): Promise<void> => {
+const refresh = async (req: CustomRequest, res: Response): Promise<void> => {
   try {
     const { refreshToken } = req.body as { refreshToken: string };
     if (!refreshToken) {
@@ -115,7 +116,7 @@ const refresh = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
-const logout = async (req: Request, res: Response): Promise<void> => {
+const logout = async (req: CustomRequest, res: Response): Promise<void> => {
   const { refreshToken, accessToken } = req.body as {
     refreshToken: string;
     accessToken: string;
@@ -126,7 +127,7 @@ const logout = async (req: Request, res: Response): Promise<void> => {
   res.status(204).json({ message: "Logged out successfully" });
 };
 
-const checkmail = async (req: Request, res: Response): Promise<void> => {
+const checkmail = async (req: CustomRequest, res: Response): Promise<void> => {
   try {
     const { email } = req.body as { email: string };
 
@@ -159,7 +160,7 @@ const checkmail = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
-const forgotPassword = async (req: Request, res: Response): Promise<void> => {
+const forgotPassword = async (req: CustomRequest, res: Response): Promise<void> => {
   try {
     const { email, password } = req.body as { email: string; password: string };
 
@@ -186,13 +187,13 @@ const forgotPassword = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
-const changePassword = async (req: Request, res: Response): Promise<void> => {
+const changePassword = async (req: CustomRequest, res: Response): Promise<void> => {
   try {
     const { oldPassword, newPassword } = req.body as {
       oldPassword: string;
       newPassword: string;
     };
-    const { id } = req.body.payload as { id: string };
+    const { id } = req.payload as { id: string };
 
     if (!oldPassword || !newPassword) {
       res

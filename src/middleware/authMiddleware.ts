@@ -1,8 +1,10 @@
-import { Request, Response, NextFunction } from "express";
+import {  Response, NextFunction } from "express";
 import { verifyToken } from "@utils/jwt";
+import { CustomRequest } from "../types/Request";
+
 
 export const authMiddleware = async (
-  req: Request,
+  req: CustomRequest,
   res: Response,
   next: NextFunction
 ): Promise<void> => {
@@ -15,7 +17,7 @@ export const authMiddleware = async (
 
     const value = authHeader.split(" ")[1];
     const payload = await verifyToken(value);
-    req.body.payload = payload;
+    const _ = Object.assign(req, { payload });
     next();
   } catch (error) {
     const message = error instanceof Error ? error.message : "Unauthorized";

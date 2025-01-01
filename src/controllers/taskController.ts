@@ -1,10 +1,11 @@
-import { Request, Response } from "express";
+import { Response } from "express";
+import { CustomRequest } from "../types/Request";
 import TaskQuery from "@helpers/TaskQuery";
 
-const createTodo = async (req: Request, res: Response): Promise<void> => {
+const createTodo = async (req: CustomRequest, res: Response): Promise<void> => {
   try {
-    const { payload, ...taskData } = req.body;
-    const { id } = payload as { id: string };
+    const { ...taskData } = req.body;
+    const { id } = req.payload as { id: string };
 
     if (!id) {
       res.status(400).json({ message: "User ID is required" });
@@ -32,14 +33,14 @@ const createTodo = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
-const updateTodo = async (req: Request, res: Response): Promise<void> => {
+const updateTodo = async (req: CustomRequest, res: Response): Promise<void> => {
   try {
-    const { payload, ...taskdata } = req.body;
+    const { ...taskdata } = req.body;
     const taskId = taskdata.id as string;
 
     if (!taskId) {
       res.status(400).json({
-        message: "task Id was not provided in the request",
+        message: "task Id was not provided in the CustomRequest",
       });
       return;
     }
@@ -66,13 +67,13 @@ const updateTodo = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
-const fetchAllTodo = async (req: Request, res: Response): Promise<void> => {
+const fetchAllTodo = async (req: CustomRequest, res: Response): Promise<void> => {
   try {
-    const { id } = req.body.payload as { id: string };
+    const { id } = req.payload as { id: string };
 
     if (!id) {
       res.status(400).json({
-        message: "Id was not provided in the request",
+        message: "Id was not provided in the CustomRequest",
       });
       return;
     }
@@ -99,13 +100,13 @@ const fetchAllTodo = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
-const fetchTodoById = async (req: Request, res: Response): Promise<void> => {
+const fetchTodoById = async (req: CustomRequest, res: Response): Promise<void> => {
   try {
     const taskId = req.params.id as string;
 
     if (!taskId) {
       res.status(400).json({
-        message: "Id was not provided in the request",
+        message: "Id was not provided in the CustomRequest",
       });
       return;
     }
@@ -132,9 +133,9 @@ const fetchTodoById = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
-const fetchTodoByDate = async (req: Request, res: Response): Promise<void> => {
+const fetchTodoByDate = async (req: CustomRequest, res: Response): Promise<void> => {
   try {
-    const { id } = req.body.payload as { id: string };
+    const { id } = req.payload as { id: string };
     const { startdate, enddate } = req.query;
 
     if (!startdate) {
@@ -165,13 +166,13 @@ const fetchTodoByDate = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
-const deleteTodo = async (req: Request, res: Response): Promise<void> => {
+const deleteTodo = async (req: CustomRequest, res: Response): Promise<void> => {
   try {
     const taskId = req.params.id as string;
 
     if (!taskId) {
       res.status(400).json({
-        message: "Id was not provided in the request",
+        message: "Id was not provided in the CustomRequest",
       });
       return;
     }
