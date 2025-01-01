@@ -19,7 +19,7 @@ async function signAccessToken(payload: TokenPayload): Promise<string> {
   const jti = crypto.randomBytes(16).toString("hex");
   return new SignJWT({ ...payload, jti, type: "access" })
     .setProtectedHeader({ alg: process.env.ALGO || "HS256" })
-    .setExpirationTime("10m")
+    .setExpirationTime("1d")
     .setIssuedAt()
     .setNotBefore(0)
     .sign(new TextEncoder().encode(process.env.JWT_SECRET));
@@ -29,7 +29,7 @@ async function signRefreshToken(payload: TokenPayload): Promise<string> {
   const jti = crypto.randomBytes(16).toString("hex");
   return new SignJWT({ ...payload, jti, type: "refresh" })
     .setProtectedHeader({ alg: process.env.ALGO || "HS256" })
-    .setExpirationTime("5d")
+    .setExpirationTime("10d")
     .setIssuedAt()
     .setNotBefore(0)
     .sign(new TextEncoder().encode(process.env.JWT_SECRET));
@@ -74,7 +74,7 @@ export async function generateTokens(
   return {
     accessToken,
     refreshToken,
-    expiresIn: 600,
+    expiresIn: 10000,
     tokenType: "Bearer",
   };
 }

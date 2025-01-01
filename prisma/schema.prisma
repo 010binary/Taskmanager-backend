@@ -68,14 +68,3 @@ model Todo {
   user      User     @relation(fields: [userId], references: [id])
 }
 
-model Streak {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  count     Int
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  // Relation
-  userId    String   @db.ObjectId
-  user      User     @relation(fields: [userId], references: [id])
-}
-

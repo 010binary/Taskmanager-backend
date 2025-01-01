@@ -3,7 +3,6 @@ import express from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
 import logger from "@middleware/logger";
-import useragent from "express-useragent";
 import router from "./router/";
 import "./register-paths";
 import swaggerUi from "swagger-ui-express"
@@ -31,7 +30,6 @@ app.use(
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(useragent.express());
 app.use(express.static("./public"));
 // Custom middleware
 app.use(logger);
@@ -41,5 +39,5 @@ app.use("/api/v1", router);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  console.log(`Server running on port http://localhost:${PORT}`);
 });

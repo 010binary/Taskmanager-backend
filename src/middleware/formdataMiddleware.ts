@@ -38,7 +38,7 @@ export const formdataMiddleware = async (
 ): Promise<void> => {
   upload.single("image")(req, res, (err) => {
     if (err) {
-      return res.status(500).json({ error: err.message });
+      return res.status(400).json({ error: err.message });
     }
 
     if (req.file) {
