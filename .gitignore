@@ -1,6 +1,14 @@
+# node modules
 node_modules/
+
+# build files
 dist/
+
+# env files
 .env
+
+# Server Logs
 logs/
 
-uploads/
+# Public folder
+public/

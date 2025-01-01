@@ -18,9 +18,9 @@
       "@utils/*": ["./src/utils/*"],
       "@orm/*": ["./prisma/*"],
       "@middleware/*": ["./src/middleware/*"],
-      "@types/*": ["./src/types/*"],
+      "@types/*": ["./src/types/*"]
     }
   },
-  "include": ["src/**/*"], 
+  "include": ["src/**/*", "logs/logger.ts"],
   "exclude": ["node_modules", "dist", "src/tests"]
 }
