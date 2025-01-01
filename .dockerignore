@@ -1,0 +1,23 @@
+# Logs
+log/
+
+# Node modules
+nodemon.json
+
+# markdown files
+Setup.md
+Readme.md
+
+# Postman collection
+TaskManager.postman.collection.json
+
+# Docker
+Dockerfile
+
+# Node modules and dist
+node_modules
+dist
+
+# Git
+.git
+.gitignore
