@@ -1,0 +1,1704 @@
+{
+	"info": {
+		"_postman_id": "9cc3e722-e3fa-4dc2-a82c-aea40c505844",
+		"name": "TaskManager",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "39979948"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Register",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"fullname\": \"Amanda Ekata\",\r\n\t\"email\": \"Amanda10@gmail.com\",\r\n\t\"occupation\": \"{{$randomJobTitle}}\",\r\n\t\"password\": \"123456789\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{auth_url}}/register",
+							"host": [
+								"{{auth_url}}"
+							],
+							"path": [
+								"register"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Register",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\t\"fullname\": \"Amanda Alpha\",\r\n\t\"email\": \"Amanda@gmail.com\",\r\n\t\"occupation\": \"Lead Flutter Developer\",\r\n\t\"password\": \"12345678\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{dev}}/auth/register",
+									"host": [
+										"{{dev}}"
+									],
+									"path": [
+										"auth",
+										"register"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "JSON",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express",
+									"type": "text"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*",
+									"type": "text"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true",
+									"type": "text"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8",
+									"type": "text"
+								},
+								{
+									"key": "Content-Length",
+									"value": "894",
+									"type": "text"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"37e-zYcq3zH2W7zOLzZCmtaMn+JewEU\"",
+									"type": "text"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 02 Nov 2024 11:24:53 GMT",
+									"type": "text"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive",
+									"type": "text"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"user\": {\n        \"id\": \"67260c057982e2380d56b99d\",\n        \"fullname\": \"Amanda Alpha\",\n        \"email\": \"Amanda@gmail.com\",\n        \"occupation\": \"Lead Flutter Developer\",\n        \"social\": null,\n        \"isVisible\": true,\n        \"image\": null,\n        \"createdAt\": \"2024-11-02T11:24:53.403Z\",\n        \"updatedAt\": \"2024-11-02T11:24:53.403Z\"\n    },\n    \"tokens\": {\n        \"accessToken\": \"eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6IkFtYW5kYUBnbWFpbC5jb20iLCJpZCI6IjY3MjYwYzA1Nzk4MmUyMzgwZDU2Yjk5ZCIsImp0aSI6ImI5MTkyODk0NjgzOTY3YjZkYWU4MTBjNGEzMjg2MDlmIiwidHlwZSI6ImFjY2VzcyIsImV4cCI6MTczMDU0NzI5MywiaWF0IjoxNzMwNTQ2NjkzLCJuYmYiOjB9.sI-lBcfhBNRTtXvV2ajbTpP_LGtFytLs9PBd9xgLS18\",\n        \"refreshToken\": \"eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6IkFtYW5kYUBnbWFpbC5jb20iLCJpZCI6IjY3MjYwYzA1Nzk4MmUyMzgwZDU2Yjk5ZCIsImp0aSI6ImJlOTAzZTM0ZDQ1NzE4ODkyM2M0NDQyNDcyM2UxNmY2IiwidHlwZSI6InJlZnJlc2giLCJleHAiOjE3MzA5Nzg2OTMsImlhdCI6MTczMDU0NjY5MywibmJmIjowfQ.bQpeQFnnubxXh5ZMVbjDS-eSa7OP3ExUKq_DhJjdymU\",\n        \"expiresIn\": 600,\n        \"tokenType\": \"Bearer\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"Amanda10@gmail.com\",\r\n    \"password\": \"123456789\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/api/v1/auth/login",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Login",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"Amanda@gmail.com\",\r\n    \"password\": \"12345678\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{dev}}/auth/login",
+									"host": [
+										"{{dev}}"
+									],
+									"path": [
+										"auth",
+										"login"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "JSON",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express",
+									"type": "text"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*",
+									"type": "text"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true",
+									"type": "text"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8",
+									"type": "text"
+								},
+								{
+									"key": "Content-Length",
+									"value": "894",
+									"type": "text"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"37e-BkUkvZ3pGZnVQMxiPPBZI7vyBYc\"",
+									"type": "text"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 02 Nov 2024 11:28:51 GMT",
+									"type": "text"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive",
+									"type": "text"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"user\": {\n        \"id\": \"67260c057982e2380d56b99d\",\n        \"fullname\": \"Amanda Alpha\",\n        \"email\": \"Amanda@gmail.com\",\n        \"occupation\": \"Lead Flutter Developer\",\n        \"social\": null,\n        \"isVisible\": true,\n        \"image\": null,\n        \"createdAt\": \"2024-11-02T11:24:53.403Z\",\n        \"updatedAt\": \"2024-11-02T11:24:53.403Z\"\n    },\n    \"tokens\": {\n        \"accessToken\": \"eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6IkFtYW5kYUBnbWFpbC5jb20iLCJpZCI6IjY3MjYwYzA1Nzk4MmUyMzgwZDU2Yjk5ZCIsImp0aSI6ImE2ZGVhZWFjYWE2MDczYmJlY2M5ZmFiZWJlYThlODdhIiwidHlwZSI6ImFjY2VzcyIsImV4cCI6MTczMDU0NzUzMSwiaWF0IjoxNzMwNTQ2OTMxLCJuYmYiOjB9.Bd_8vTYJkzBot-V8WV0nmLmBHiRqwjIQUVszf3d2wgM\",\n        \"refreshToken\": \"eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6IkFtYW5kYUBnbWFpbC5jb20iLCJpZCI6IjY3MjYwYzA1Nzk4MmUyMzgwZDU2Yjk5ZCIsImp0aSI6IjI4MTA0NzYxYzc5N2ZlMzM0ZWJjNDYzYmVhYTJlYWVlIiwidHlwZSI6InJlZnJlc2giLCJleHAiOjE3MzA5Nzg5MzEsImlhdCI6MTczMDU0NjkzMSwibmJmIjowfQ.k3RTwVsI3aW78h8E7RLntLApfCWRq0stkQwLouRzfU0\",\n        \"expiresIn\": 600,\n        \"tokenType\": \"Bearer\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Refresh access token",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6IkFtYW5kYTEwQGdtYWlsLmNvbSIsImlkIjoiNjczMThiYTEzZGJhNDg4NDhlYWFiMmI4IiwianRpIjoiYjNmYjMzZDZmYWYyOTU2NDUxZDI3MmQ2NTk1NzEwNjAiLCJ0eXBlIjoicmVmcmVzaCIsImV4cCI6MTczNTkzOTExMSwiaWF0IjoxNzM1NTA3MTExLCJuYmYiOjB9.juq0jdafpUk6rqzg3cLto9k-Pk909A4fCJKs6p6-7v4",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-refresh-token",
+								"value": "eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6IkFtYW5kYTEwQGdtYWlsLmNvbSIsImlkIjoiNjczMThiYTEzZGJhNDg4NDhlYWFiMmI4IiwianRpIjoiYjNmYjMzZDZmYWYyOTU2NDUxZDI3MmQ2NTk1NzEwNjAiLCJ0eXBlIjoicmVmcmVzaCIsImV4cCI6MTczNTkzOTExMSwiaWF0IjoxNzM1NTA3MTExLCJuYmYiOjB9.juq0jdafpUk6rqzg3cLto9k-Pk909A4fCJKs6p6-7v4",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:3000/api/v1/auth/refresh",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"refresh"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6IkFtYW5kYTEwQGdtYWlsLmNvbSIsImlkIjoiNjcyNjQ2MWViMzg4M2Y0MDIxYjJkNTA2IiwianRpIjoiNmRiOTY3ZGQ4ZTE2ZTk5NTIyNGJlMGJjNGZmMWViNDciLCJ0eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMwNzMxMTE1LCJpYXQiOjE3MzA3MzA1MTUsIm5iZiI6MH0.POnz-OVgcYeCmkRgwC6yZloOraj9n4YfyLccVRAGCCs",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-refresh-token",
+								"value": "eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6IkFtYW5kYTEwQGdtYWlsLmNvbSIsImlkIjoiNjcyNjQ2MWViMzg4M2Y0MDIxYjJkNTA2IiwianRpIjoiODAzN2NhOWJjNjcxOTcxODNmY2Y0YjNiZGE5NzZmMzkiLCJ0eXBlIjoicmVmcmVzaCIsImV4cCI6MTczMTE2MjUxNSwiaWF0IjoxNzMwNzMwNTE1LCJuYmYiOjB9.JfzNfm1bHi-Uv2P2ORNu3BT6iruMrOM1O-huR2BlksI",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{auth_url}}/logout",
+							"host": [
+								"{{auth_url}}"
+							],
+							"path": [
+								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Check mail",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"Amanda10@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{auth_url}}/checkmail",
+							"host": [
+								"{{auth_url}}"
+							],
+							"path": [
+								"checkmail"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Forget Password",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6IkFtYW5kYTEwQGdtYWlsLmNvbSIsImlkIjoiNjcyNjQ2MWViMzg4M2Y0MDIxYjJkNTA2IiwianRpIjoiODQxMDY5MDhlODczZTVmMmU1MzQxZTNmMDU1MGFlMTgiLCJ0eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMwNzMxMjQ3LCJpYXQiOjE3MzA3MzA2NDcsIm5iZiI6MH0.CV5MqN6KT4Z-XAAVVFpnltpv5nYuzeAwTO0GNMuvJ7U",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"Amanda10@gmail.com\",\r\n    \"password\":\"Alpha\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{auth_url}}/forgotpassword",
+							"host": [
+								"{{auth_url}}"
+							],
+							"path": [
+								"forgotpassword"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Change Password",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJpZCI6IjY3MzE4YmExM2RiYTQ4ODQ4ZWFhYjJiOCIsImVtYWlsIjoiQW1hbmRhMTBAZ21haWwuY29tIiwianRpIjoiZDc5NmYyYzUzNjEyM2VlYmJhNWRlNGNkOTg5NGY0YzgiLCJ0eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM1NTIzMzgzLCJpYXQiOjE3MzU1MjI3ODMsIm5iZiI6MH0.fbQwz4LK01VFjhw_zFfRKkulfIfuj84L5YdLpWeYi9g",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"oldPassword\":\"Alpha\",\r\n    \"newPassword\":\"123456789\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{auth_url}}/changepassword",
+							"host": [
+								"{{auth_url}}"
+							],
+							"path": [
+								"changepassword"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "This is the Auth routes",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Profile",
+			"item": [
+				{
+					"name": "Change Acct status",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/profile/changestatus",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"profile",
+								"changestatus"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Change Acct status",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{dev}}/changestatus",
+									"host": [
+										"{{dev}}"
+									],
+									"path": [
+										"changestatus"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "54"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"36-Zoz9LYvUodFSCqnh/n/F/8LLX1c\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 04 Nov 2024 15:47:16 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Status changed successfully\",\n    \"value\": true\n}"
+						}
+					]
+				},
+				{
+					"name": "Edit profilt data",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "fullname",
+									"value": "Amanda Alpha",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "Amanda@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "occupation",
+									"value": "Lead Flutter Developer",
+									"type": "text"
+								},
+								{
+									"key": "social",
+									"value": "https://portfolio-mu-gold-43.vercel.app/",
+									"type": "text"
+								},
+								{
+									"key": "isVisible",
+									"value": "true",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "postman-cloud:///1efc7f51-1001-4df0-a2bd-d515de8ed971"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/profile/updateprofile",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"profile",
+								"updateprofile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User data",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJpZCI6IjY3MzE4YmExM2RiYTQ4ODQ4ZWFhYjJiOCIsImVtYWlsIjoiQW1hbmRhMTBAZ21haWwuY29tIiwianRpIjoiZDc5NmYyYzUzNjEyM2VlYmJhNWRlNGNkOTg5NGY0YzgiLCJ0eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM1NTIzMzgzLCJpYXQiOjE3MzU1MjI3ODMsIm5iZiI6MH0.fbQwz4LK01VFjhw_zFfRKkulfIfuj84L5YdLpWeYi9g",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/profile",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "The routes here are used for Updating the user profile",
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiJ9.eyJpZCI6IjY3MzE4YmExM2RiYTQ4ODQ4ZWFhYjJiOCIsImVtYWlsIjoiQW1hbmRhMTBAZ21haWwuY29tIiwianRpIjoiZmU1ZTUyMzRkYzFmMzZmMGEzZTliYTI5ODIwMDJhZWEiLCJ0eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM1Nzk1ODY0LCJpYXQiOjE3MzU3MDk0NjQsIm5iZiI6MH0.q0kuqj-wJLDI3d0NU_F6_bTM57XnmkIvQh5Blclnzlg",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Todo / Task",
+			"item": [
+				{
+					"name": "Create Task",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"day\": \"sunday\",\r\n    \"date\": \"2024-11-21\",\r\n    \"title\": \"{{$randomJobTitle}}\",\r\n    \"note\": \"{{$randomCatchPhrase}}\",\r\n    \"status\": {{$randomBoolean}},\r\n    \"time\": \"06:30\",\r\n    \"repeat\": \"weekly\",\r\n    \"priority\": \"HIGH\",\r\n    \"finishTime\": \"06:50\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/api/v1/tasks/create",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"tasks",
+								"create"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Create Task",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"day\": \"sunday\",\r\n    \"date\": \"2024-11-21\",\r\n    \"title\": \"{{$randomJobTitle}}\",\r\n    \"note\": \"{{$randomCatchPhrase}}\",\r\n    \"status\": {{$randomBoolean}},\r\n    \"time\": \"06:30\",\r\n    \"repeat\": \"weekly\",\r\n    \"priority\": \"HIGH\",\r\n    \"finishTime\": \"06:50\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:3000/api/v1/tasks/create",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"tasks",
+										"create"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "395"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"18b-F1SCZgHYRXnuyw9k0EGLcGfu84U\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 11 Nov 2024 04:46:04 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Task created successfully\",\n    \"data\": {\n        \"id\": \"67318c0b3dba48848eaab2bb\",\n        \"day\": \"sunday\",\n        \"date\": \"2024-11-21\",\n        \"title\": \"Chief Quality Strategist\",\n        \"note\": \"Intuitive static pricing structure\",\n        \"status\": false,\n        \"time\": \"06:30\",\n        \"repeat\": \"weekly\",\n        \"priority\": \"HIGH\",\n        \"finishTime\": \"06:50\",\n        \"createdAt\": \"2024-11-11T04:46:02.726Z\",\n        \"updatedAt\": \"2024-11-11T04:46:02.726Z\",\n        \"userId\": \"67318ba13dba48848eaab2b8\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Update Task",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"67305abc21f7e49866cabc5e\",\r\n    \"title\": \"{{$randomJobTitle}}\",\r\n    \"note\": \"{{$randomLoremText}}\",\r\n    \"status\": {{$randomBoolean}},\r\n    \"time\": \"06:50\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{dev}}/update",
+							"host": [
+								"{{dev}}"
+							],
+							"path": [
+								"update"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Update Task",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": \"67305abc21f7e49866cabc5e\",\r\n    \"title\": \"{{$randomJobTitle}}\",\r\n    \"note\": \"{{$randomLoremText}}\",\r\n    \"status\": {{$randomBoolean}},\r\n    \"time\": \"06:50\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{dev}}/update",
+									"host": [
+										"{{dev}}"
+									],
+									"path": [
+										"update"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "369"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"171-gPMRsK21xiaptcWe428rRegOEpw\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 10 Nov 2024 07:12:41 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Task Updated successfully\",\n    \"data\": {\n        \"id\": \"67305abc21f7e49866cabc5e\",\n        \"day\": \"sunday\",\n        \"date\": \"2024-11-15\",\n        \"title\": \"Senior Infrastructure Developer\",\n        \"note\": \"quis aut quos\",\n        \"status\": true,\n        \"time\": \"06:50\",\n        \"repeat\": true,\n        \"priority\": \"HIGH\",\n        \"fnshTime\": 10,\n        \"createdAt\": \"2024-11-10T07:03:23.054Z\",\n        \"updatedAt\": \"2024-11-10T07:12:38.211Z\",\n        \"userId\": \"6726461eb3883f4021b2d506\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Get All Task",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{task_url}}/getall",
+							"host": [
+								"{{task_url}}"
+							],
+							"path": [
+								"getall"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get All Task",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{dev}}/getall",
+									"host": [
+										"{{dev}}"
+									],
+									"path": [
+										"getall"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "2421"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"975-cjPCi/UQQSGkWAo52A32WVKS9Gw\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 10 Nov 2024 07:05:25 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"All Avaliable User Task\",\n    \"data\": [\n        {\n            \"id\": \"67305abc21f7e49866cabc5e\",\n            \"day\": \"sunday\",\n            \"date\": \"2024-11-15\",\n            \"title\": \"Lead Solutions Strategist\",\n            \"note\": \"Centralized zero defect complexity\",\n            \"status\": false,\n            \"time\": \"06:30\",\n            \"repeat\": true,\n            \"priority\": \"HIGH\",\n            \"fnshTime\": 10,\n            \"createdAt\": \"2024-11-10T07:03:23.054Z\",\n            \"updatedAt\": \"2024-11-10T07:03:23.054Z\",\n            \"userId\": \"6726461eb3883f4021b2d506\"\n        },\n        {\n            \"id\": \"67305aaf21f7e49866cabc5c\",\n            \"day\": \"saturday\",\n            \"date\": \"2024-11-14\",\n            \"title\": \"Lead Functionality Agent\",\n            \"note\": \"Team-oriented 24 hour moratorium\",\n            \"status\": true,\n            \"time\": \"06:30\",\n            \"repeat\": true,\n            \"priority\": \"HIGH\",\n            \"fnshTime\": 10,\n            \"createdAt\": \"2024-11-10T07:03:10.335Z\",\n            \"updatedAt\": \"2024-11-10T07:03:10.335Z\",\n            \"userId\": \"6726461eb3883f4021b2d506\"\n        },\n        {\n            \"id\": \"67305a9921f7e49866cabc5a\",\n            \"day\": \"friday\",\n            \"date\": \"2024-11-13\",\n            \"title\": \"Central Applications Facilitator\",\n            \"note\": \"Customizable 5th generation application\",\n            \"status\": false,\n            \"time\": \"06:30\",\n            \"repeat\": true,\n            \"priority\": \"HIGH\",\n            \"fnshTime\": 10,\n            \"createdAt\": \"2024-11-10T07:02:47.778Z\",\n            \"updatedAt\": \"2024-11-10T07:02:47.778Z\",\n            \"userId\": \"6726461eb3883f4021b2d506\"\n        },\n        {\n            \"id\": \"67305a8b21f7e49866cabc58\",\n            \"day\": \"thrusday\",\n            \"date\": \"2024-11-12\",\n            \"title\": \"Direct Branding Officer\",\n            \"note\": \"Innovative radical project\",\n            \"status\": false,\n            \"time\": \"06:30\",\n            \"repeat\": true,\n            \"priority\": \"HIGH\",\n            \"fnshTime\": 10,\n            \"createdAt\": \"2024-11-10T07:02:34.418Z\",\n            \"updatedAt\": \"2024-11-10T07:02:34.418Z\",\n            \"userId\": \"6726461eb3883f4021b2d506\"\n        },\n        {\n            \"id\": \"67305a7321f7e49866cabc56\",\n            \"day\": \"wednesday\",\n            \"date\": \"2024-11-11\",\n            \"title\": \"National Brand Director\",\n            \"note\": \"Fundamental radical moderator\",\n            \"status\": false,\n            \"time\": \"06:30\",\n            \"repeat\": true,\n            \"priority\": \"HIGH\",\n            \"fnshTime\": 10,\n            \"createdAt\": \"2024-11-10T07:02:09.748Z\",\n            \"updatedAt\": \"2024-11-10T07:02:09.748Z\",\n            \"userId\": \"6726461eb3883f4021b2d506\"\n        },\n        {\n            \"id\": \"67305a5521f7e49866cabc54\",\n            \"day\": \"tuesday\",\n            \"date\": \"2024-11-10\",\n            \"title\": \"Legacy Implementation Executive\",\n            \"note\": \"Customer-focused background concept\",\n            \"status\": false,\n            \"time\": \"06:30\",\n            \"repeat\": true,\n            \"priority\": \"HIGH\",\n            \"fnshTime\": 10,\n            \"createdAt\": \"2024-11-10T07:01:39.858Z\",\n            \"updatedAt\": \"2024-11-10T07:01:39.858Z\",\n            \"userId\": \"6726461eb3883f4021b2d506\"\n        },\n        {\n            \"id\": \"67305a2c21f7e49866cabc50\",\n            \"day\": \"monday\",\n            \"date\": \"2024-11-09\",\n            \"title\": \"Global Identity Facilitator\",\n            \"note\": \"Reduced secondary focus group\",\n            \"status\": true,\n            \"time\": \"06:30\",\n            \"repeat\": true,\n            \"priority\": \"HIGH\",\n            \"fnshTime\": 10,\n            \"createdAt\": \"2024-11-10T07:00:59.538Z\",\n            \"updatedAt\": \"2024-11-10T07:00:59.538Z\",\n            \"userId\": \"6726461eb3883f4021b2d506\"\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Get By ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{dev}}/get/67305abc21f7e49866cabc5e",
+							"host": [
+								"{{dev}}"
+							],
+							"path": [
+								"get",
+								"67305abc21f7e49866cabc5e"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get By ID",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{dev}}/get/67305abc21f7e49866cabc5e",
+									"host": [
+										"{{dev}}"
+									],
+									"path": [
+										"get",
+										"67305abc21f7e49866cabc5e"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "404"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"194-2IogN3y1xSch6P2jobojzpu3Ff8\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 10 Nov 2024 07:06:53 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Task with the 67305abc21f7e49866cabc5e found\",\n    \"data\": {\n        \"id\": \"67305abc21f7e49866cabc5e\",\n        \"day\": \"sunday\",\n        \"date\": \"2024-11-15\",\n        \"title\": \"Lead Solutions Strategist\",\n        \"note\": \"Centralized zero defect complexity\",\n        \"status\": false,\n        \"time\": \"06:30\",\n        \"repeat\": true,\n        \"priority\": \"HIGH\",\n        \"fnshTime\": 10,\n        \"createdAt\": \"2024-11-10T07:03:23.054Z\",\n        \"updatedAt\": \"2024-11-10T07:03:23.054Z\",\n        \"userId\": \"6726461eb3883f4021b2d506\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Get By Query String",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{dev}}/getquery?startdate=2024-11-09&enddate=2024-11-15",
+							"host": [
+								"{{dev}}"
+							],
+							"path": [
+								"getquery"
+							],
+							"query": [
+								{
+									"key": "startdate",
+									"value": "2024-11-09"
+								},
+								{
+									"key": "enddate",
+									"value": "2024-11-15"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get By Query String",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{dev}}/getquery?startdate=2024-11-09&enddate=2024-11-12",
+									"host": [
+										"{{dev}}"
+									],
+									"path": [
+										"getquery"
+									],
+									"query": [
+										{
+											"key": "startdate",
+											"value": "2024-11-09"
+										},
+										{
+											"key": "enddate",
+											"value": "2024-11-12"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "1382"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"566-uGldZVca16EUTBanoIk5lxKrzto\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 10 Nov 2024 07:07:38 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Tasks found\",\n    \"data\": [\n        {\n            \"id\": \"67305a2c21f7e49866cabc50\",\n            \"day\": \"monday\",\n            \"date\": \"2024-11-09\",\n            \"title\": \"Global Identity Facilitator\",\n            \"note\": \"Reduced secondary focus group\",\n            \"status\": true,\n            \"time\": \"06:30\",\n            \"repeat\": true,\n            \"priority\": \"HIGH\",\n            \"fnshTime\": 10,\n            \"createdAt\": \"2024-11-10T07:00:59.538Z\",\n            \"updatedAt\": \"2024-11-10T07:00:59.538Z\",\n            \"userId\": \"6726461eb3883f4021b2d506\"\n        },\n        {\n            \"id\": \"67305a5521f7e49866cabc54\",\n            \"day\": \"tuesday\",\n            \"date\": \"2024-11-10\",\n            \"title\": \"Legacy Implementation Executive\",\n            \"note\": \"Customer-focused background concept\",\n            \"status\": false,\n            \"time\": \"06:30\",\n            \"repeat\": true,\n            \"priority\": \"HIGH\",\n            \"fnshTime\": 10,\n            \"createdAt\": \"2024-11-10T07:01:39.858Z\",\n            \"updatedAt\": \"2024-11-10T07:01:39.858Z\",\n            \"userId\": \"6726461eb3883f4021b2d506\"\n        },\n        {\n            \"id\": \"67305a7321f7e49866cabc56\",\n            \"day\": \"wednesday\",\n            \"date\": \"2024-11-11\",\n            \"title\": \"National Brand Director\",\n            \"note\": \"Fundamental radical moderator\",\n            \"status\": false,\n            \"time\": \"06:30\",\n            \"repeat\": true,\n            \"priority\": \"HIGH\",\n            \"fnshTime\": 10,\n            \"createdAt\": \"2024-11-10T07:02:09.748Z\",\n            \"updatedAt\": \"2024-11-10T07:02:09.748Z\",\n            \"userId\": \"6726461eb3883f4021b2d506\"\n        },\n        {\n            \"id\": \"67305a8b21f7e49866cabc58\",\n            \"day\": \"thrusday\",\n            \"date\": \"2024-11-12\",\n            \"title\": \"Direct Branding Officer\",\n            \"note\": \"Innovative radical project\",\n            \"status\": false,\n            \"time\": \"06:30\",\n            \"repeat\": true,\n            \"priority\": \"HIGH\",\n            \"fnshTime\": 10,\n            \"createdAt\": \"2024-11-10T07:02:34.418Z\",\n            \"updatedAt\": \"2024-11-10T07:02:34.418Z\",\n            \"userId\": \"6726461eb3883f4021b2d506\"\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Delete Task",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{dev}}/delete/67305a4621f7e49866cabc52",
+							"host": [
+								"{{dev}}"
+							],
+							"path": [
+								"delete",
+								"67305a4621f7e49866cabc52"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Delete Task",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{dev}}/delete/67305a4621f7e49866cabc52",
+									"host": [
+										"{{dev}}"
+									],
+									"path": [
+										"delete",
+										"67305a4621f7e49866cabc52"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "72"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"48-StiDzIyfe0j/KIbX4T2FLt7iLQ0\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 10 Nov 2024 07:04:42 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Task with the 67305a4621f7e49866cabc52 deleted\",\n    \"data\": null\n}"
+						}
+					]
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6IkFtYW5kYTEwQGdtYWlsLmNvbSIsImlkIjoiNjczMThiYTEzZGJhNDg4NDhlYWFiMmI4IiwianRpIjoiNzljZDM2YzU3ZmQzMmNiMzUzOWVjN2IyMTFmMDliZjUiLCJ0eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM1NjQzNjc4LCJpYXQiOjE3MzU2NDMwNzgsIm5iZiI6MH0.vJIHa82Xm9U0laytmD9kMokikd_nBe4i9IBRxeHQPCE",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Follow",
+			"item": [
+				{
+					"name": "Get follows",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{dev}}/api/v1/follow/getcount",
+							"host": [
+								"{{dev}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"follow",
+								"getcount"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get follows",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{dev}}/follow",
+									"host": [
+										"{{dev}}"
+									],
+									"path": [
+										"follow"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "73"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"49-zNzF3JacVjcoqQvRhQtT+H3lVq0\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 11 Nov 2024 03:11:11 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Follow data\",\n    \"data\": {\n        \"followedByCount\": 0,\n        \"followingcount\": 0\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Get all followers",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImV4YW1wbGVAaG90bWFpbC5jb20iLCJpZCI6IjY3NzFmMmNiMzQ3MTdkZmM2NDg4MTg5NiIsImp0aSI6IjU3MDJhMzJkYmVkNTY3ZGY0NmMxNTY4OTQ0MDZjMjgzIiwidHlwZSI6ImFjY2VzcyIsImV4cCI6MTczNTUyMTU3MSwiaWF0IjoxNzM1NTIwOTcxLCJuYmYiOjB9.BJodAIjGbTuZPcGRBHFc_Vw2ZuqZB7sDaGxPZE8ODtk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{dev}}/api/v1/follow/getfollower",
+							"host": [
+								"{{dev}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"follow",
+								"getfollower"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get all followers",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{dev}}/follow/getfollower",
+									"host": [
+										"{{dev}}"
+									],
+									"path": [
+										"follow",
+										"getfollower"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "141"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"8d-FqIK5D792LEwFV6yXPicOsyOmC8\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 11 Nov 2024 06:43:25 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Follower List\",\n    \"data\": [\n        {\n            \"id\": \"67318ba13dba48848eaab2b8\",\n            \"fullname\": \"Amanda Ekata\",\n            \"occupation\": \"Customer Accounts Facilitator\"\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Get all followings",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{dev}}/follow/getfollowing",
+							"host": [
+								"{{dev}}"
+							],
+							"path": [
+								"follow",
+								"getfollowing"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get all followings",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{dev}}/follow/getfollowing",
+									"host": [
+										"{{dev}}"
+									],
+									"path": [
+										"follow",
+										"getfollowing"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "556"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"22c-+gzMfVGEQ5G+stAjv1QPiHRVvbY\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 11 Nov 2024 06:42:02 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Following List\",\n    \"data\": [\n        {\n            \"id\": \"67319fe1aa708873d59ddb2d\",\n            \"fullname\": \"Amanda Ekata\",\n            \"occupation\": \"District Metrics Engineer\"\n        },\n        {\n            \"id\": \"6731a66d65f5d312a0176ec0\",\n            \"fullname\": \"Irvin Johns\",\n            \"occupation\": \"Global Implementation Architect\"\n        },\n        {\n            \"id\": \"6731a6a165f5d312a0176ec6\",\n            \"fullname\": \"Elizabeth Gibson DVM\",\n            \"occupation\": \"Internal Applications Technician\"\n        },\n        {\n            \"id\": \"6731a6eb65f5d312a0176ecd\",\n            \"fullname\": \"Bob Lowe I\",\n            \"occupation\": \"Dynamic Solutions Director\"\n        },\n        {\n            \"id\": \"6731a71065f5d312a0176ed4\",\n            \"fullname\": \"Lynne Gibson\",\n            \"occupation\": \"Dynamic Data Analyst\"\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Follow a User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"67319fe1aa708873d59ddb2d\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{dev}}/follow/followuser",
+							"host": [
+								"{{dev}}"
+							],
+							"path": [
+								"follow",
+								"followuser"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Follow a User",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": \"6731a71065f5d312a0176ed4\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{dev}}/follow/followuser",
+									"host": [
+										"{{dev}}"
+									],
+									"path": [
+										"follow",
+										"followuser"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "64"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"40-Q7OsGwil9zo/P/FEIvGNIcrSIA0\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 11 Nov 2024 06:41:44 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Follower List\",\n    \"data\": {\n        \"message\": \"following added\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Unfollow a User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"67319fe1aa708873d59ddb2d\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{dev}}/follow/unfollowuser",
+							"host": [
+								"{{dev}}"
+							],
+							"path": [
+								"follow",
+								"unfollowuser"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Unfollow a User",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": \"67319fe1aa708873d59ddb2d\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{dev}}/follow/unfollowuser",
+									"host": [
+										"{{dev}}"
+									],
+									"path": [
+										"follow",
+										"unfollowuser"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "65"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"41-G65pXavH0zwGu+j8ZxdS2gxFRkU\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 11 Nov 2024 06:15:12 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Follower List\",\n    \"data\": {\n        \"message\": \"following remove\"\n    }\n}"
+						}
+					]
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6IkFtYW5kYTEwMEBnbWFpbC5jb20iLCJpZCI6IjY3NzIwMjM1NTY3OTUxZmQ4MWJlMjM3NCIsImp0aSI6IjMyMWZmYTM0M2Q5MzY0NzZmZTYyZDBiN2NkNWI5OTAzIiwidHlwZSI6ImFjY2VzcyIsImV4cCI6MTczNTUyNTUzOCwiaWF0IjoxNzM1NTI0OTM4LCJuYmYiOjB9.PQ8HTIura_i2AVfBIeZJxeKijgDHAfOru-LJ7wbvD2k",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

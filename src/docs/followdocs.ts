@@ -317,4 +317,58 @@
  *                 message:
  *                   type: string
  *                   example: this user doesn't exist.
+ * 
+
+ *   schemas: 
+ *     User:
+ *       type: object
+ *       properties:
+ *         id:
+ *           type: string
+ *           example: 67318ba13dba48848eaab2b8
+ *         fullname:
+ *           type: string
+ *           example: John Smith
+ *         email:
+ *           type: string
+ *           format: email
+ *           example: user@example.com
+ *         occupation:
+ *           type: string
+ *           example: Software Engineer
+ *         social:
+ *           type: string
+ *           nullable: true
+ *           example: null
+ *         isVisible:
+ *           type: boolean
+ *           example: true
+ *         image:
+ *           type: string
+ *           nullable: true
+ *           example: null
+ *         createdAt:
+ *           type: string
+ *           format: date-time
+ *           example: 2024-12-25T05:53:42.113Z
+ *         updatedAt:
+ *           type: string
+ *           format: date-time
+ *           example: 2024-12-25T05:53:42.113Z
+ * 
+ *     Tokens:
+ *       type: object
+ *       properties:
+ *         accessToken:
+ *           type: string
+ *           example: eyJhbGciOiJIUzI1NiJ9...
+ *         refreshToken:
+ *           type: string
+ *           example: eyJhbGciOiJIUzI1NiJ9...
+ *         expiresIn:
+ *           type: integer
+ *           example: 600
+ *         tokenType:
+ *           type: string
+ *           example: Bearer
  */

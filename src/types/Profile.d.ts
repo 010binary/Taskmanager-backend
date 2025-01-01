@@ -32,7 +32,7 @@ type Result<T> =
 
 // Specific result types
 type UserResult = Result<Omit<User, "password" | "createdAt" | "updatedAt">>;
-type UpdateResult = Result<Omit<User, "password">>;
+type UpdateResult = Result<Omit<User, "password" | "createdAt" | "updatedAt">>;
 type Status = Result<
   Omit<
     User,

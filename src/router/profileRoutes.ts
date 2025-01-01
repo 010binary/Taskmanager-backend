@@ -6,8 +6,8 @@ import { formdataMiddleware } from "@middleware/formdataMiddleware";
 const router: Router = express.Router();
 
 router.get("/", authMiddleware, getUser);
-router.post("/changestatus", authMiddleware, changestatus);
-router.post(
+router.patch("/changestatus", authMiddleware, changestatus);
+router.put(
   "/updateprofile",
   authMiddleware,
   formdataMiddleware,

@@ -22,7 +22,7 @@ const Update = async (params: UpdateParams): Promise<UpdateResult> => {
       data: updateData,
     });
 
-    const { password: _, ...userWithoutPassword } = user;
+    const { password, createdAt, updatedAt, ...userWithoutPassword } = user;
     return {
       success: true,
       data: userWithoutPassword,
