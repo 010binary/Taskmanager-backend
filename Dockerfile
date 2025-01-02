@@ -10,7 +10,7 @@ RUN apk add --no-cache libc6-compat build-base python3 make
 # Copy package.json and package-lock.json
 COPY package.json package-lock.json ./ 
 COPY prisma ./prisma/
-COPY .env ./
+#COPY .env ./
 
 # Install all dependencies (including devDependencies)
 RUN npm install
@@ -36,7 +36,7 @@ COPY --from=builder /app/package*.json ./
 COPY --from=builder /app/prisma ./prisma
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/tsconfig*.json ./
-COPY --from=builder /app/.env ./
+# COPY --from=builder /app/.env ./
 
 # Generate Prisma client
 RUN npx prisma generate
