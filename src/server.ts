@@ -3,9 +3,9 @@ import express from "express";
 import { Request, Response } from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
-import pino from "@middleware/ProductionLogs";
-import router from "./router/";
 import "./register-paths";
+import pino from "@middleware/productionLogs";
+import router from "./router/";
 import swaggerUi from "swagger-ui-express"
 import swaggerSpec from "./swaggerSpecs";
 import path from "node:path";
