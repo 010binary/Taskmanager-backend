@@ -39,7 +39,7 @@ const swaggerDefinitions = {
 const options = {
   definition: swaggerDefinitions,
   apis: [
-    './src/docs/*.ts'
+    './src/docs/*.ts', './src/docs/*.js'
   ]
 }
 

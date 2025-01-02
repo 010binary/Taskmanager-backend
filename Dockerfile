@@ -8,15 +8,12 @@ WORKDIR /app
 RUN apk add --no-cache libc6-compat build-base python3 make 
 
 # Copy package.json and package-lock.json
-COPY package.json package-lock.json ./
+COPY package.json package-lock.json ./ 
 COPY prisma ./prisma/
 COPY .env ./
 
 # Install all dependencies (including devDependencies)
 RUN npm install
-
-# Verify TypeScript installation
-RUN npm list typescript && npx tsc --version
 
 # Copy the application code
 COPY . .
@@ -26,6 +23,7 @@ RUN npm run build
 
 # Stage 2: Production image
 FROM node:20-alpine
+
 # Set the working directory
 WORKDIR /app
 

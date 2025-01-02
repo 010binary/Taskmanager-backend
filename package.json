@@ -4,7 +4,7 @@
   "main": "server.js",
   "scripts": {
     "dev": "nodemon",
-    "start": "node -r ts-node/register/transpile-only -r tsconfig-paths/register dist/src/server.js",
+    "start": "prisma generate && node -r ts-node/register/transpile-only -r tsconfig-paths/register dist/src/server.js",
     "prod": "npm run build && npm run start",
     "build": "rm -rf dist && tsc",
     "build:watch": "tsc --watch",

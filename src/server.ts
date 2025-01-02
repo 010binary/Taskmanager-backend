@@ -42,7 +42,7 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.get("/", (_req: Request, res: Response) => {
   res.redirect("/api-docs");
 });
-app.get("/ping", (_req: Request, res: Response) => {
+app.get("/healthcheck", (_req: Request, res: Response) => {
   res.status(200).json({ message: "pong" });
 });
 
