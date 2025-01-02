@@ -6,12 +6,11 @@
     "dev": "nodemon",
     "start": "prisma generate && node -r ts-node/register/transpile-only -r tsconfig-paths/register dist/src/server.js",
     "prod": "npm run build && npm run start",
-    "build": "rm -rf dist && tsc",
-    "build:watch": "tsc --watch",
-    "postinstall": "prisma generate"
+    "build": "rimraf dist && tsc",
+    "build:watch": "tsc --watch"
   },
   "keywords": [],
-  "author": "",
+  "author": "Augustine Chukwuemeka",
   "license": "ISC",
   "description": "",
   "dependencies": {
