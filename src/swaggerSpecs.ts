@@ -21,7 +21,7 @@ const swaggerDefinitions = {
       description: 'Development server'
     },
     {
-      url: 'https://planpal-backend-xsr9.onrender.com',
+      url: 'https://taskmanager-backend-h067.onrender.com',
       description: 'Liveurl'
     }
   ],
